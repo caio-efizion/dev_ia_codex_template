@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "project": "{{PROJECT_NAME}}",
+  "modules": [
+    {
+      "id": "tenant-core",
+      "name": "Tenant Core",
+      "type": "platform",
+      "specs": [
+        "module-spec-template",
+        "api-interface-template"
+      ],
+      "apis": [
+        "tenant-resolution-api",
+        "membership-admin-api"
+      ],
+      "schemas": [
+        "tenants",
+        "tenant_memberships",
+        "plan_entitlements"
+      ]
+    },
+    {
+      "id": "identity-access",
+      "name": "Identity And Access",
+      "type": "platform",
+      "specs": [
+        "module-spec-template",
+        "api-interface-template"
+      ],
+      "apis": [
+        "session-api",
+        "authorization-api"
+      ],
+      "schemas": [
+        "users",
+        "sessions",
+        "support_sessions"
+      ]
+    },
+    {
+      "id": "domain-module-template",
+      "name": "{{MAIN_MODULES}}",
+      "type": "business",
+      "specs": [
+        "module-spec-template"
+      ],
+      "apis": [
+        "{{MODULE_API_BASE}}"
+      ],
+      "schemas": [
+        "{{MODULE_PRIMARY_TABLES}}"
+      ]
+    },
+    {
+      "id": "api-interface",
+      "name": "API And UI Interface",
+      "type": "cross-cutting",
+      "specs": [
+        "api-interface-template"
+      ],
+      "apis": [
+        "public-api",
+        "internal-bff-api"
+      ],
+      "schemas": []
+    },
+    {
+      "id": "background-jobs",
+      "name": "Background Jobs",
+      "type": "cross-cutting",
+      "specs": [
+        "background-jobs-template"
+      ],
+      "apis": [
+        "job-status-api"
+      ],
+      "schemas": [
+        "job_runs",
+        "outbox_events"
+      ]
+    }
+  ],
+  "specs": [
+    {
+      "id": "module-spec-template",
+      "name": "Module Specification Template",
+      "path": "docs/specs/module-spec.template.md",
+      "module": "domain-template"
+    },
+    {
+      "id": "api-interface-template",
+      "name": "API And UI Interface Template",
+      "path": "docs/specs/api-and-ui-interface.template.md",
+      "module": "api-interface"
+    },
+    {
+      "id": "background-jobs-template",
+      "name": "Background Jobs Template",
+      "path": "docs/specs/background-jobs.template.md",
+      "module": "background-jobs"
+    },
+    {
+      "id": "repository-structure-template",
+      "name": "Repository Structure Template",
+      "path": "docs/specs/repository-structure.template.md",
+      "module": "architecture"
+    },
+    {
+      "id": "coding-standards-template",
+      "name": "Coding Standards Template",
+      "path": "docs/specs/coding-standards.template.md",
+      "module": "engineering"
+    }
+  ],
+  "apis": [
+    {
+      "id": "tenant-resolution-api",
+      "name": "Tenant Resolution API",
+      "path": "docs/api/api-contracts.template.md",
+      "ownedBy": "tenant-core"
+    },
+    {
+      "id": "session-api",
+      "name": "Session API",
+      "path": "docs/api/api-contracts.template.md",
+      "ownedBy": "identity-access"
+    },
+    {
+      "id": "public-api",
+      "name": "Public API",
+      "path": "docs/api/api-contracts.template.md",
+      "ownedBy": "api-interface"
+    },
+    {
+      "id": "job-status-api",
+      "name": "Job Status API",
+      "path": "docs/api/api-contracts.template.md",
+      "ownedBy": "background-jobs"
+    }
+  ],
+  "schemas": [
+    {
+      "id": "tenants",
+      "path": "docs/database/database-schema.template.md",
+      "ownedBy": "tenant-core"
+    },
+    {
+      "id": "tenant_memberships",
+      "path": "docs/database/database-schema.template.md",
+      "ownedBy": "tenant-core"
+    },
+    {
+      "id": "users",
+      "path": "docs/database/database-schema.template.md",
+      "ownedBy": "identity-access"
+    },
+    {
+      "id": "job_runs",
+      "path": "docs/database/database-schema.template.md",
+      "ownedBy": "background-jobs"
+    },
+    {
+      "id": "{{MODULE_PRIMARY_TABLES}}",
+      "path": "docs/database/database-schema.template.md",
+      "ownedBy": "domain-module-template"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "tenant-core",
+      "to": "identity-access",
+      "type": "depends-on"
+    },
+    {
+      "from": "identity-access",
+      "to": "api-interface",
+      "type": "authorizes"
+    },
+    {
+      "from": "domain-module-template",
+      "to": "module-spec-template",
+      "type": "defined-by"
+    },
+    {
+      "from": "api-interface",
+      "to": "api-interface-template",
+      "type": "defined-by"
+    },
+    {
+      "from": "background-jobs",
+      "to": "background-jobs-template",
+      "type": "defined-by"
+    }
+  ]
+}

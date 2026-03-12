@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "id": "planner",
+      "agent": "planner",
+      "prompt": "ai/prompts/planner.prompt.md"
+    },
+    {
+      "id": "spec-generator",
+      "agent": "spec-agent",
+      "prompt": "ai/prompts/spec.prompt.md"
+    },
+    {
+      "id": "builder",
+      "agent": "builder",
+      "prompt": "ai/prompts/builder.prompt.md"
+    },
+    {
+      "id": "reviewer",
+      "agent": "reviewer",
+      "prompt": "ai/prompts/reviewer.prompt.md"
+    },
+    {
+      "id": "tester",
+      "agent": "tester",
+      "prompt": "ai/prompts/tester.prompt.md"
+    },
+    {
+      "id": "security",
+      "agent": "security",
+      "prompt": "ai/prompts/security.prompt.md"
+    }
+  ],
+  "edges": [
+    {
+      "from": "planner",
+      "to": "spec-generator"
+    },
+    {
+      "from": "spec-generator",
+      "to": "builder"
+    },
+    {
+      "from": "builder",
+      "to": "reviewer"
+    },
+    {
+      "from": "reviewer",
+      "to": "tester"
+    },
+    {
+      "from": "tester",
+      "to": "security"
+    }
+  ]
+}

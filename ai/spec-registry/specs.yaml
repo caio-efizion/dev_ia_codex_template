@@ -1,0 +1,21 @@
+specs:
+  - name: module-spec-template
+    module: domain-template
+    status: template
+    file_path: docs/specs/module-spec.template.md
+  - name: api-and-ui-interface-template
+    module: api-interface
+    status: template
+    file_path: docs/specs/api-and-ui-interface.template.md
+  - name: background-jobs-template
+    module: background-jobs
+    status: template
+    file_path: docs/specs/background-jobs.template.md
+  - name: repository-structure-template
+    module: architecture
+    status: template
+    file_path: docs/specs/repository-structure.template.md
+  - name: coding-standards-template
+    module: engineering
+    status: template
+    file_path: docs/specs/coding-standards.template.md
