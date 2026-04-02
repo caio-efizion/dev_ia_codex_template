@@ -78,6 +78,22 @@ Template maintainers should validate the reusable baseline separately from any p
 - `make ai-template-score` scores the template baseline against a reusable quality target
 - `make ai-prd-score` and `make ai-run-strict` remain project PRD gates after a repository is instantiated from the template
 
+## Primary Operator Flow
+
+For day-to-day project delivery, the preferred human-facing surface is:
+
+- `make ai-define`: bootstrap the repo and prepare the project PRD gate
+- `make ai-build`: execute planner -> spec-generator -> ux-ui-designer -> builder for the active slice
+- `make ai-prove`: execute reviewer -> tester -> frontend-auditor -> security for the active slice
+
+For one-shot automation:
+
+- `make ai-flow`: run `define -> build -> prove`
+- `make ai-flow-strict`: run the same operator flow with strict project PRD enforcement on the execution phases
+- `make ai-run` and `make ai-run-strict`: keep the original single-command full graph execution for automation and CI
+
+Fine-grained commands such as `make ai-plan`, `make ai-review`, `make ai-test`, and `make ai-run-graph` remain available for expert use, debugging, or targeted reruns.
+
 ## Execution Layer
 
 - `scripts/ai-init-project.sh` bootstraps a working project in `PRD-first` mode by default, creating the minimal authoring surface plus runtime scaffolding and compressed context.
@@ -92,7 +108,7 @@ Template maintainers should validate the reusable baseline separately from any p
 - `scripts/ai-run-stage-validators.sh` enforces pre-step and post-step security validators around each stage.
 - `scripts/ai-run-quality-gates.sh` runs blocking lint, typecheck, unit, e2e, coverage, accessibility, Lighthouse, screenshot, and visual-regression checks for a slice.
 - `scripts/ai-run-pilot-validation.sh` runs the versioned PRD-first pilot flow in a temporary Git workspace and writes durable evidence to `reports/pilot-validation.md`.
-- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
+- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-define`, `make ai-build`, `make ai-prove`, `make ai-flow`, `make ai-flow-strict`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
 
 ## Security By Design
 
@@ -149,13 +165,13 @@ The recommended start flow is:
 1. Run `make ai-init`.
 2. Fill `docs/prd-questionnaire.md` with raw product, scope, workflow, data, integration, and constraint detail, including `project_profile`, `technical_stack`, and `delivery_mode`.
    For projects with UI, also capture frontend surfaces, interaction states, accessibility expectations, responsive priorities, and frontend performance constraints.
-3. Run `make ai-prd` to generate or refine `docs/prd.md`.
-4. Run `make ai-prd-review` to create `docs/audit/prd-review.md`.
-5. Run `make ai-prd-score` to maintain `docs/prd-quality-checklist.md` and create `docs/audit/prd-score.md`.
-6. Refine the questionnaire or PRD until the review and score are strong enough.
-7. Run `make ai-run` or `make ai-run-strict`.
+3. Run `make ai-define` to generate or refine `docs/prd.md`, review it, and score the project PRD gate.
+4. Refine the questionnaire or PRD until the review and score are strong enough.
+5. Run `make ai-build`.
+6. Run `make ai-prove`.
+7. Use `make ai-flow` or `make ai-run` when you want one command instead of the phased operator flow.
 
-`make ai-prd`, `make ai-prd-review`, and `make ai-prd-score` reuse the same step runner and selective context routing used by the main pipeline.
+`make ai-prd`, `make ai-prd-review`, and `make ai-prd-score` reuse the same step runner and selective context routing used by the main pipeline. `make ai-define` is a convenience operator command that chains those three source-quality steps.
 
 For the reusable template itself, use `make ai-template-validate` and `make ai-template-score` instead of reading `docs/audit/prd-score.md` as a baseline quality signal. That PRD score is for an instantiated project's product definition.
 
@@ -178,11 +194,12 @@ That target enables `AI_ENFORCE_PRD_QUALITY=1`, which blocks the delivery pipeli
 1. Create a new repository from this template.
 2. Run `make ai-init` to seed runtime scaffolding and any missing bootstrap files.
 3. Fill `docs/prd-questionnaire.md` with project-specific requirements.
-4. Run `make ai-prd`, `make ai-prd-review`, and `make ai-prd-score` iteratively until the PRD is strong enough to drive execution.
+4. Run `make ai-define` iteratively until the PRD is strong enough to drive execution.
 5. Keep the frontend governance docs available for UI-heavy projects: `docs/architecture/frontend-architecture.md`, `docs/specs/design-system.md`, `docs/specs/frontend-quality-gates.md`, and `docs/specs/ux-research-and-journeys.md`.
-6. Run `make ai-run` so the Planner and Specification Agent can derive `tasks/tasks.md`, `tasks/backlog.md`, `ai/spec-registry/specs.yaml`, `ai/context-index/context-map.json`, and the first working specs from the PRD.
-7. Create runtime files only under `runtime/` during execution.
-8. Run `make ai-install-skills` if the team should install the versioned repository skills locally.
+6. Run `make ai-build` so the Planner and Specification Agent can derive `tasks/tasks.md`, `tasks/backlog.md`, `ai/spec-registry/specs.yaml`, `ai/context-index/context-map.json`, and the first working specs from the PRD.
+7. Run `make ai-prove` to execute review, test, frontend audit, and security for the active slice.
+8. Create runtime files only under `runtime/` during execution.
+9. Run `make ai-install-skills` if the team should install the versioned repository skills locally.
 
 Detailed instructions live in [ai/system/bootstrap.md](ai/system/bootstrap.md).
 
@@ -191,13 +208,17 @@ Detailed instructions live in [ai/system/bootstrap.md](ai/system/bootstrap.md).
 1. Clone the template repository.
 2. Run `make ai-init`.
 3. Fill `docs/prd-questionnaire.md`.
-4. Run `make ai-prd`.
-5. Run `make ai-prd-review`.
-6. Run `make ai-prd-score`.
-7. Focus on making the PRD the most complete source artifact in the repository. In the default bootstrap mode, `ai-init` intentionally does not materialize every working doc, because `make ai-run` is expected to derive the missing planning artifacts from the PRD.
-8. Run `make ai-run` or `make ai-run-strict`.
+4. Run `make ai-define`.
+5. Focus on making the PRD the most complete source artifact in the repository. In the default bootstrap mode, `ai-init` intentionally does not materialize every working doc, because `make ai-build` is expected to derive the missing planning artifacts from the PRD.
+6. Run `make ai-build`.
+7. Run `make ai-prove`.
+8. Use `make ai-flow-strict` or `make ai-run-strict` when the project should enforce the PRD gate before execution.
 
 `make ai-run` executes the deterministic graph in [tasks/task-graph.json](tasks/task-graph.json), prepares each step from the prompt files in [ai/prompts](ai/prompts), writes step briefs into `runtime/context-cache/`, and by default invokes [scripts/ai-step-runner-codex.sh](scripts/ai-step-runner-codex.sh). Set `AI_STEP_RUNNER_BIN` only when you need to override the default runner.
+
+`make ai-build` is the preferred phased build command for human operators. It resolves graph dependencies automatically, so invoking `builder` runs planner, spec generation, UX/UI refinement, and implementation in the correct order for the active slice.
+
+`make ai-prove` is the preferred phased verification command for human operators. It runs reviewer, tester, frontend auditor, and security as a single proving phase without forcing the user to invoke each audit stage manually.
 
 In the intended `PRD-first` workflow, `make ai-run` should be able to derive and repair the remaining planning artifacts from `docs/prd.md`, including:
 

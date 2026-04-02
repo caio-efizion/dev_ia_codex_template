@@ -7,11 +7,11 @@ The fastest path is:
 1. create a new repository from this template
 2. `make ai-init`
 3. fill `docs/prd-questionnaire.md`
-4. `make ai-prd`
-5. `make ai-prd-review`
-6. `make ai-prd-score`
-7. refine the questionnaire and PRD until they are detailed enough to drive planning
-8. `make ai-run` or `make ai-run-strict`
+4. `make ai-define`
+5. refine the questionnaire and PRD until they are detailed enough to drive planning
+6. `make ai-build`
+7. `make ai-prove`
+8. use `make ai-flow-strict` or `make ai-run-strict` when execution must enforce the project PRD gate
 9. optionally `make ai-install-skills` to synchronize shared repository skills into the local Codex environment
 
 `make ai-init` now defaults to a minimal `PRD-first` bootstrap.
@@ -93,18 +93,19 @@ For UI-heavy projects, keep these governance docs aligned with the PRD and activ
 Run:
 
 ```bash
-make ai-run
+make ai-build
+make ai-prove
 ```
 
-The planner and specification agent should materialize the remaining project-specific artifacts from the PRD.
+The planner and specification agent should materialize the remaining project-specific artifacts from the PRD during `make ai-build`.
 
 If you want enforcement instead of guidance, run:
 
 ```bash
-make ai-run-strict
+make ai-flow-strict
 ```
 
-That mode blocks the delivery pipeline unless the PRD score explicitly approves execution.
+That mode keeps the simplified phased operator flow while blocking execution unless the PRD score explicitly approves the project.
 
 ## 6. Optional Full Bootstrap
 

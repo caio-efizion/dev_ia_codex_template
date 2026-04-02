@@ -93,6 +93,8 @@ In a project repository freshly created from the template, non-template docs may
 
 For maintainers of the template itself, use `make ai-template-validate` and `make ai-template-score` to assess the reusable baseline. Those commands are separate from `make ai-prd-score`, which evaluates a project PRD after the template has been instantiated.
 
+For day-to-day operators, the preferred project flow is `make ai-define`, `make ai-build`, and `make ai-prove`. The older `make ai-run` and `make ai-run-strict` remain the one-shot automation surface, while `make ai-plan`, `make ai-review`, `make ai-test`, and `make ai-run-graph` are finer-grained expert controls.
+
 ## 4. Starting AI Development
 
 ### `make ai-init`
@@ -154,6 +156,45 @@ This command:
 - writes an ephemeral report to `runtime/logs/template-score.md`
 - uses `AI_TEMPLATE_MIN_SCORE` with a default target of `90`
 
+### `make ai-define`
+
+This command:
+
+- runs `make ai-init`, `make ai-prd`, `make ai-prd-review`, and `make ai-prd-score` as one operator flow
+- keeps the PRD authoring loop simple for humans without changing the underlying source-quality gates
+- is the preferred way to prepare an instantiated project for slice execution
+
+### `make ai-build`
+
+This command:
+
+- is the preferred human-facing build phase for the active slice
+- resolves graph dependencies automatically up to `builder`
+- therefore runs planner, spec-generator, UX/UI Designer, and Builder in dependency order
+
+### `make ai-prove`
+
+This command:
+
+- is the preferred human-facing proving phase for the active slice
+- runs reviewer, tester, frontend auditor, and security as one grouped verification flow
+- preserves the same blocking checks, evidence requirements, and validators used by the full graph
+
+### `make ai-flow`
+
+This command:
+
+- runs `define -> build -> prove`
+- is useful when a human operator wants a single command but still wants the simplified macro surface instead of the raw full-graph entrypoint
+
+### `make ai-flow-strict`
+
+This command:
+
+- runs `define -> build -> prove`
+- enforces the project PRD gate on the execution phases
+- is the phased operator equivalent of strict full-pipeline automation
+
 ### `make ai-init-full`
 
 This compatibility command:
@@ -175,6 +216,8 @@ This command:
 - runs stage security validators before and after each agent step
 - runs blocking quality gates after `tester`
 - writes durable evidence to `reports/security/` and `reports/slices/`
+
+For human operators, prefer `make ai-build` and `make ai-prove` unless a single-command full graph run is specifically desired.
 
 ### `make ai-run-strict`
 
@@ -221,14 +264,8 @@ This command:
 The framework expects the following flow:
 
 1. PRD defines the product and operating constraints.
-2. Planner structures the phase plan and backlog.
-3. Spec Generator creates or repairs implementation specs.
-4. UX/UI Designer refines frontend-facing slices before implementation.
-5. Builder implements the active slice.
-6. Reviewer validates architecture and contract compliance.
-7. Tester runs verification.
-8. Frontend Auditor reviews user-visible quality, accessibility, responsiveness, and performance evidence.
-9. Security audits trust boundaries and data protection rules.
+2. `make ai-build` runs Planner, Spec Generator, UX/UI Designer, and Builder for the active slice.
+3. `make ai-prove` runs Reviewer, Tester, Frontend Auditor, and Security for the active slice.
 
 The exact execution order is controlled by `tasks/task-graph.json`. The graph engine validates the graph, resolves a topological order, and executes stages in that order. This prevents accidental stage reordering and makes the pipeline explicit rather than implied by shell scripts. The default graph order is Planner -> Spec Generator -> UX/UI Designer -> Builder -> Reviewer -> Tester -> Frontend Auditor -> Security.
 

@@ -303,12 +303,13 @@ function evaluateTemplate(repoRoot) {
       criterion: 'Core execution entrypoints exist for bootstrap, graph run, step runner, quality, and pilot validation',
       status: [
         'scripts/ai-init-project.sh',
+        'scripts/ai-workflow.sh',
         'scripts/ai-run-graph.sh',
         'scripts/ai-step-runner-codex.sh',
         'scripts/ai-run-quality-gates.sh',
         'scripts/ai-run-pilot-validation.sh',
       ].every((relativePath) => fileExists(repoRoot, relativePath)) ? 'pass' : 'fail',
-      evidence: 'scripts/ai-init-project.sh, scripts/ai-run-graph.sh, scripts/ai-step-runner-codex.sh, scripts/ai-run-quality-gates.sh, scripts/ai-run-pilot-validation.sh',
+      evidence: 'scripts/ai-init-project.sh, scripts/ai-workflow.sh, scripts/ai-run-graph.sh, scripts/ai-step-runner-codex.sh, scripts/ai-run-quality-gates.sh, scripts/ai-run-pilot-validation.sh',
     },
     {
       id: 'makefile-template-targets',
@@ -316,6 +317,19 @@ function evaluateTemplate(repoRoot) {
       criterion: 'Makefile exposes lightweight template validation and template scoring targets',
       status: hasMakeTarget(makefileText, 'ai-template-validate') && hasMakeTarget(makefileText, 'ai-template-score') ? 'pass' : 'fail',
       evidence: 'Makefile targets ai-template-validate and ai-template-score',
+    },
+    {
+      id: 'makefile-workflow-targets',
+      area: 'Execution',
+      criterion: 'Makefile exposes a simple define -> build -> prove operator surface plus one-shot flow targets',
+      status: (
+        hasMakeTarget(makefileText, 'ai-define') &&
+        hasMakeTarget(makefileText, 'ai-build') &&
+        hasMakeTarget(makefileText, 'ai-prove') &&
+        hasMakeTarget(makefileText, 'ai-flow') &&
+        hasMakeTarget(makefileText, 'ai-flow-strict')
+      ) ? 'pass' : 'fail',
+      evidence: 'Makefile targets ai-define, ai-build, ai-prove, ai-flow, and ai-flow-strict',
     },
     {
       id: 'security-surface',
@@ -380,6 +394,23 @@ function evaluateTemplate(repoRoot) {
       evidence: 'README.md, docs/developer-guide.md, and AGENTS.md mention ai-template-validate and ai-template-score',
     },
     {
+      id: 'workflow-docs',
+      area: 'Governance',
+      criterion: 'Root docs present define -> build -> prove as the primary human operator flow',
+      status: (
+        readmeText.includes('ai-define') &&
+        readmeText.includes('ai-build') &&
+        readmeText.includes('ai-prove') &&
+        developerGuideText.includes('ai-define') &&
+        developerGuideText.includes('ai-build') &&
+        developerGuideText.includes('ai-prove') &&
+        agentsText.includes('ai-define') &&
+        agentsText.includes('ai-build') &&
+        agentsText.includes('ai-prove')
+      ) ? 'pass' : 'fail',
+      evidence: 'README.md, docs/developer-guide.md, and AGENTS.md mention ai-define, ai-build, and ai-prove',
+    },
+    {
       id: 'template-vs-prd-separation',
       area: 'Governance',
       criterion: 'Docs make clear that strict PRD scoring is a project gate, not a template baseline gate',
@@ -394,11 +425,11 @@ function evaluateTemplate(repoRoot) {
 
   const dimensions = {
     structure: ['required-surfaces', 'graph-integrity'],
-    execution: ['execution-scripts', 'makefile-template-targets'],
+    execution: ['execution-scripts', 'makefile-template-targets', 'makefile-workflow-targets'],
     security: ['security-surface'],
     cleanliness: ['baseline-cleanliness', 'runtime-cleanliness', 'reports-cleanliness', 'pilot-hygiene'],
     portability: ['portability'],
-    governance: ['template-docs', 'template-vs-prd-separation'],
+    governance: ['template-docs', 'workflow-docs', 'template-vs-prd-separation'],
   }
 
   const dimensionScores = Object.fromEntries(

@@ -84,6 +84,11 @@ The guided PRD commands are:
 - `make ai-prd-score` to maintain the PRD quality checklist and formal gate score
 - `make ai-template-validate` to validate the reusable template baseline without treating placeholder PRDs as project blockers
 - `make ai-template-score` to score template cleanliness, portability, execution readiness, and safety against a baseline quality target
+- `make ai-define` to bootstrap the repository and prepare the project PRD gate in one operator command
+- `make ai-build` to execute the build phase of the active slice through planner, spec generation, UX/UI refinement, and implementation
+- `make ai-prove` to execute reviewer, tester, frontend auditor, and security as a single proving phase
+- `make ai-flow` to run `define -> build -> prove`
+- `make ai-flow-strict` to run the same macro flow with strict project PRD enforcement on execution phases
 - `make ai-run-strict` to enforce PRD quality before the full delivery pipeline runs
 - `make ai-quality-gates` to run the blocking quality suite for a specific slice with `AI_SLICE_ID=<slice-id>`
 - `make ai-pilot-validate` to execute the versioned pilot validation flow and write `reports/pilot-validation.md`
@@ -91,14 +96,16 @@ The guided PRD commands are:
 The canonical start flow for a repository generated from this template is:
 
 1. capture project requirements in `docs/prd-questionnaire.md`
-2. iterate on `make ai-prd`
-3. review and score the PRD
-4. let `make ai-run` derive the backlog, spec registry, context index, working specs, and frontend governance artifacts from the approved PRD
+2. iterate on `make ai-define` or the underlying `make ai-prd`, `make ai-prd-review`, and `make ai-prd-score`
+3. run `make ai-build`
+4. run `make ai-prove`
+
+For one-shot automation, `make ai-run` and `make ai-run-strict` remain valid. For human operators, the preferred surface is `define -> build -> prove`.
 
 For template maintenance, keep this distinction explicit:
 
 1. `make ai-template-validate` and `make ai-template-score` measure the reusable template baseline
-2. `make ai-prd-score` and `make ai-run-strict` measure the project PRD after a repository is instantiated from the template
+2. `make ai-prd-score`, `make ai-build`, `make ai-prove`, and `make ai-run-strict` operate on the project PRD after a repository is instantiated from the template
 
 ## Preserved Source Material
 

@@ -39,6 +39,16 @@ In a freshly instantiated project, files such as `docs/prd.md`, `tasks/tasks.md`
 3. planner output
 4. specification output
 
+## Preferred Operator Surface
+
+When humans drive execution manually, use:
+
+1. `make ai-define`
+2. `make ai-build`
+3. `make ai-prove`
+
+Use `make ai-flow` or `make ai-flow-strict` when one command is preferred. Use `make ai-run` or `make ai-run-strict` for one-shot automation and CI-oriented full graph execution.
+
 ## Agent Roles
 
 | Agent | Responsibility | Primary Outputs |

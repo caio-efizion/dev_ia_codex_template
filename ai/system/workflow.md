@@ -2,6 +2,14 @@
 
 The template uses a deterministic multi-agent delivery loop controlled by `tasks/task-graph.json`.
 
+The preferred human operator surface is:
+
+1. `make ai-define`
+2. `make ai-build`
+3. `make ai-prove`
+
+`make ai-flow` and `make ai-flow-strict` are macro wrappers for that phased surface. `make ai-run` and `make ai-run-strict` remain the one-shot automation entrypoints.
+
 PRD quality assurance is a parallel authoring loop. It is not part of `tasks/task-graph.json`, but it can gate execution when strict quality enforcement is enabled.
 
 In a repository freshly created from this template, working files that still contain `{{...}}` placeholders are a valid bootstrap state. The workflow is expected to converge those files into project-specific artifacts from the PRD before implementation proceeds.
