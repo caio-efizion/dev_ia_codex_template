@@ -91,6 +91,8 @@ Versioned shared skills that can be installed into local Codex environments. Use
 
 In a project repository freshly created from the template, non-template docs may still contain baseline placeholders. That is expected. Those files are bootstrap scaffolding until the PRD-first workflow rewrites them into project-specific artifacts.
 
+For maintainers of the template itself, use `make ai-template-validate` and `make ai-template-score` to assess the reusable baseline. Those commands are separate from `make ai-prd-score`, which evaluates a project PRD after the template has been instantiated.
+
 ## 4. Starting AI Development
 
 ### `make ai-init`
@@ -135,6 +137,23 @@ This command:
 - assigns a reusable project profile, technical stack summary, delivery mode, and readiness level
 - produces a deterministic gate artifact that can block the pipeline in strict mode
 
+### `make ai-template-validate`
+
+This command:
+
+- validates the reusable template baseline instead of a project PRD
+- checks graph integrity, portability, runtime/report cleanliness, and safety surfaces
+- writes an ephemeral report to `runtime/logs/template-validation.md`
+
+### `make ai-template-score`
+
+This command:
+
+- scores the reusable template baseline
+- treats cleanliness, portability, execution readiness, security baseline, and governance clarity as the scoring dimensions
+- writes an ephemeral report to `runtime/logs/template-score.md`
+- uses `AI_TEMPLATE_MIN_SCORE` with a default target of `90`
+
 ### `make ai-init-full`
 
 This compatibility command:
@@ -165,6 +184,7 @@ This command:
 - enables `AI_ENFORCE_PRD_QUALITY=1`
 - blocks execution unless `docs/audit/prd-score.md` meets the configured gate
 - is the recommended mode when a project should not proceed with a weak PRD
+- is a project PRD gate, not the quality score for the reusable template baseline
 
 ### `make ai-run-graph`
 

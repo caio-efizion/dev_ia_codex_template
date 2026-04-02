@@ -70,6 +70,14 @@ The intended lifecycle is:
 
 Non-template files that still contain `{{...}}` placeholders are acceptable in the template baseline and in a freshly generated project repository. They are bootstrap scaffolding, not authoritative project truth.
 
+## Template Quality Loop
+
+Template maintainers should validate the reusable baseline separately from any project-specific PRD:
+
+- `make ai-template-validate` checks cleanliness, portability, graph integrity, and baseline safety
+- `make ai-template-score` scores the template baseline against a reusable quality target
+- `make ai-prd-score` and `make ai-run-strict` remain project PRD gates after a repository is instantiated from the template
+
 ## Execution Layer
 
 - `scripts/ai-init-project.sh` bootstraps a working project in `PRD-first` mode by default, creating the minimal authoring surface plus runtime scaffolding and compressed context.
@@ -84,7 +92,7 @@ Non-template files that still contain `{{...}}` placeholders are acceptable in t
 - `scripts/ai-run-stage-validators.sh` enforces pre-step and post-step security validators around each stage.
 - `scripts/ai-run-quality-gates.sh` runs blocking lint, typecheck, unit, e2e, coverage, accessibility, Lighthouse, screenshot, and visual-regression checks for a slice.
 - `scripts/ai-run-pilot-validation.sh` runs the versioned PRD-first pilot flow in a temporary Git workspace and writes durable evidence to `reports/pilot-validation.md`.
-- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
+- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
 
 ## Security By Design
 
@@ -148,6 +156,8 @@ The recommended start flow is:
 7. Run `make ai-run` or `make ai-run-strict`.
 
 `make ai-prd`, `make ai-prd-review`, and `make ai-prd-score` reuse the same step runner and selective context routing used by the main pipeline.
+
+For the reusable template itself, use `make ai-template-validate` and `make ai-template-score` instead of reading `docs/audit/prd-score.md` as a baseline quality signal. That PRD score is for an instantiated project's product definition.
 
 The PRD quality system separates three axes that should not be confused:
 

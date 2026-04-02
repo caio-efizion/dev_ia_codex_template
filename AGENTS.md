@@ -82,6 +82,8 @@ The guided PRD commands are:
 - `make ai-prd` to build or refine `docs/prd.md`
 - `make ai-prd-review` to review PRD quality before `make ai-run`
 - `make ai-prd-score` to maintain the PRD quality checklist and formal gate score
+- `make ai-template-validate` to validate the reusable template baseline without treating placeholder PRDs as project blockers
+- `make ai-template-score` to score template cleanliness, portability, execution readiness, and safety against a baseline quality target
 - `make ai-run-strict` to enforce PRD quality before the full delivery pipeline runs
 - `make ai-quality-gates` to run the blocking quality suite for a specific slice with `AI_SLICE_ID=<slice-id>`
 - `make ai-pilot-validate` to execute the versioned pilot validation flow and write `reports/pilot-validation.md`
@@ -92,6 +94,11 @@ The canonical start flow for a repository generated from this template is:
 2. iterate on `make ai-prd`
 3. review and score the PRD
 4. let `make ai-run` derive the backlog, spec registry, context index, working specs, and frontend governance artifacts from the approved PRD
+
+For template maintenance, keep this distinction explicit:
+
+1. `make ai-template-validate` and `make ai-template-score` measure the reusable template baseline
+2. `make ai-prd-score` and `make ai-run-strict` measure the project PRD after a repository is instantiated from the template
 
 ## Preserved Source Material
 
