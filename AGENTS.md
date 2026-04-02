@@ -4,25 +4,25 @@ This repository is a reusable AI development template for Efizion's multi-agent 
 
 The committed repository is the reusable baseline. New project repositories are expected to be created from this template, refined through the `PRD-first` workflow, and only then treated as project-specific execution environments.
 
-The canonical operating model lives in [ai/system/operating-model.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/operating-model.md).
+The canonical operating model lives in [ai/system/operating-model.md](ai/system/operating-model.md).
 
 ## Required Reading Order
 
 Before changing architecture, templates, or agent workflows, read:
 
-1. [docs/prd.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/prd.template.md)
-2. [docs/adr/0001-system-architecture.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/adr/0001-system-architecture.template.md)
-3. [docs/architecture/STRUCTURE_RULES.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/architecture/STRUCTURE_RULES.template.md)
-4. [docs/architecture/architecture.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/architecture/architecture.template.md)
-5. [docs/architecture/frontend-architecture.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/architecture/frontend-architecture.template.md)
-6. [docs/architecture/module-map.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/architecture/module-map.template.md)
-7. [docs/specs/design-system.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/specs/design-system.template.md)
-8. [docs/specs/frontend-quality-gates.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/specs/frontend-quality-gates.template.md)
-9. [docs/specs/ux-research-and-journeys.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/specs/ux-research-and-journeys.template.md)
-10. [docs/specs/coding-standards.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/specs/coding-standards.template.md)
-11. [tasks/tasks.template.md](/root/desenvolvimento-vscode/dev_ia_codex_template/tasks/tasks.template.md)
-12. [ai/system/workflow.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/workflow.md)
-13. [ai/system/operating-model.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/operating-model.md)
+1. [docs/prd.template.md](docs/prd.template.md)
+2. [docs/adr/0001-system-architecture.template.md](docs/adr/0001-system-architecture.template.md)
+3. [docs/architecture/STRUCTURE_RULES.template.md](docs/architecture/STRUCTURE_RULES.template.md)
+4. [docs/architecture/architecture.template.md](docs/architecture/architecture.template.md)
+5. [docs/architecture/frontend-architecture.template.md](docs/architecture/frontend-architecture.template.md)
+6. [docs/architecture/module-map.template.md](docs/architecture/module-map.template.md)
+7. [docs/specs/design-system.template.md](docs/specs/design-system.template.md)
+8. [docs/specs/frontend-quality-gates.template.md](docs/specs/frontend-quality-gates.template.md)
+9. [docs/specs/ux-research-and-journeys.template.md](docs/specs/ux-research-and-journeys.template.md)
+10. [docs/specs/coding-standards.template.md](docs/specs/coding-standards.template.md)
+11. [tasks/tasks.template.md](tasks/tasks.template.md)
+12. [ai/system/workflow.md](ai/system/workflow.md)
+13. [ai/system/operating-model.md](ai/system/operating-model.md)
 
 When the template is instantiated for a real project, prefer the generated non-template files first and fall back to template files only when the generated equivalents do not exist yet.
 
@@ -56,14 +56,14 @@ Treat these as separate dimensions when authoring or auditing the PRD:
 
 ## Agent Locations
 
-- agent definitions: [ai/agents](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/agents)
-- prompts: [ai/prompts](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/prompts)
-- contracts: [ai/contracts](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/contracts)
-- shared skills: [skills](/home/caio/projetos/dev_ia_codex_template/skills)
-- context layer: [ai/context](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/context)
-- compressed context: [ai/context-compressed](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/context-compressed)
-- context index: [ai/context-index/context-map.json](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/context-index/context-map.json)
-- spec registry: [ai/spec-registry/specs.yaml](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/spec-registry/specs.yaml)
+- agent definitions: [ai/agents](ai/agents)
+- prompts: [ai/prompts](ai/prompts)
+- contracts: [ai/contracts](ai/contracts)
+- shared skills: [skills](skills)
+- context layer: [ai/context](ai/context)
+- compressed context: [ai/context-compressed](ai/context-compressed)
+- context index: [ai/context-index/context-map.json](ai/context-index/context-map.json)
+- spec registry: [ai/spec-registry/specs.yaml](ai/spec-registry/specs.yaml)
 
 ## Runtime Policy
 
@@ -71,7 +71,7 @@ Treat these as separate dimensions when authoring or auditing the PRD:
 
 ## Orchestrator Entry Point
 
-When the user says `run orchestrator`, use [ai/agents/orchestrator.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/agents/orchestrator.md) in continuous mode unless they explicitly ask for a single slice.
+When the user says `run orchestrator`, use [ai/agents/orchestrator.md](ai/agents/orchestrator.md) in continuous mode unless they explicitly ask for a single slice.
 
 `tasks/task-graph.json` is the single source of truth for the default execution order used by the CLI pipeline.
 
@@ -95,4 +95,4 @@ The canonical start flow for a repository generated from this template is:
 
 ## Preserved Source Material
 
-The original project-specific repository snapshot is preserved under [docs/archive/original-project](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/archive/original-project) for reference during future template evolution.
+When template evolution needs provenance from an original project snapshot, preserve it under [docs/archive/original-project/README.md](docs/archive/original-project/README.md).

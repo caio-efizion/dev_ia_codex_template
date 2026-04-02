@@ -54,7 +54,7 @@ The default delivery loop is:
 8. Frontend Auditor checks user-visible quality, accessibility, responsiveness, and frontend evidence.
 9. Security audits trusted paths, secrets, and isolation rules.
 
-The canonical rules are in [ai/system/operating-model.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/operating-model.md) and [ai/system/workflow.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/workflow.md).
+The canonical rules are in [ai/system/operating-model.md](ai/system/operating-model.md) and [ai/system/workflow.md](ai/system/workflow.md).
 `tasks/task-graph.json` is the single source of truth for the default CLI pipeline order.
 
 ## Template Lifecycle
@@ -118,7 +118,7 @@ The default frontend skill is versioned in `skills/efizion-frontend-excellence/`
 
 ## Context Routing
 
-The default runner uses selective context routing when [ai/context-policy.yaml](/home/caio/projetos/dev_ia_codex_template/ai/context-policy.yaml) is present.
+The default runner uses selective context routing when [ai/context-policy.yaml](ai/context-policy.yaml) is present.
 
 - The graph engine writes a step brief into `runtime/context-cache/`.
 - `scripts/ai-step-runner-codex.sh` reads that brief, consults `ai/context-policy.yaml`, and uses `ai/context-index/context-map.json` plus git state to build a per-step context manifest.
@@ -174,7 +174,7 @@ That target enables `AI_ENFORCE_PRD_QUALITY=1`, which blocks the delivery pipeli
 7. Create runtime files only under `runtime/` during execution.
 8. Run `make ai-install-skills` if the team should install the versioned repository skills locally.
 
-Detailed instructions live in [ai/system/bootstrap.md](/root/desenvolvimento-vscode/dev_ia_codex_template/ai/system/bootstrap.md).
+Detailed instructions live in [ai/system/bootstrap.md](ai/system/bootstrap.md).
 
 ## How To Start A New AI-Driven Project
 
@@ -187,7 +187,7 @@ Detailed instructions live in [ai/system/bootstrap.md](/root/desenvolvimento-vsc
 7. Focus on making the PRD the most complete source artifact in the repository. In the default bootstrap mode, `ai-init` intentionally does not materialize every working doc, because `make ai-run` is expected to derive the missing planning artifacts from the PRD.
 8. Run `make ai-run` or `make ai-run-strict`.
 
-`make ai-run` executes the deterministic graph in [tasks/task-graph.json](/home/caio/projetos/dev_ia_codex_template/tasks/task-graph.json), prepares each step from the prompt files in [ai/prompts](/home/caio/projetos/dev_ia_codex_template/ai/prompts), writes step briefs into `runtime/context-cache/`, and by default invokes [scripts/ai-step-runner-codex.sh](/home/caio/projetos/dev_ia_codex_template/scripts/ai-step-runner-codex.sh). Set `AI_STEP_RUNNER_BIN` only when you need to override the default runner.
+`make ai-run` executes the deterministic graph in [tasks/task-graph.json](tasks/task-graph.json), prepares each step from the prompt files in [ai/prompts](ai/prompts), writes step briefs into `runtime/context-cache/`, and by default invokes [scripts/ai-step-runner-codex.sh](scripts/ai-step-runner-codex.sh). Set `AI_STEP_RUNNER_BIN` only when you need to override the default runner.
 
 In the intended `PRD-first` workflow, `make ai-run` should be able to derive and repair the remaining planning artifacts from `docs/prd.md`, including:
 
@@ -209,9 +209,9 @@ The default graph order is Planner -> Spec Generator -> UX/UI Designer -> Builde
 
 ## Optional Agents
 
-Agents that are present under `ai/agents/` but not referenced by [tasks/task-graph.json](/home/caio/projetos/dev_ia_codex_template/tasks/task-graph.json) are optional utilities. Today that includes [ai/agents/spec-auditor.md](/home/caio/projetos/dev_ia_codex_template/ai/agents/spec-auditor.md), which is intentionally available for manual spec reviews but is not part of the default orchestrator flow.
+Agents that are present under `ai/agents/` but not referenced by [tasks/task-graph.json](tasks/task-graph.json) are optional utilities. Today that includes [ai/agents/spec-auditor.md](ai/agents/spec-auditor.md), which is intentionally available for manual spec reviews but is not part of the default orchestrator flow.
 
-The PRD support agents [ai/agents/prd-writer.md](/home/caio/projetos/dev_ia_codex_template/ai/agents/prd-writer.md), [ai/agents/prd-reviewer.md](/home/caio/projetos/dev_ia_codex_template/ai/agents/prd-reviewer.md), and [ai/agents/prd-auditor.md](/home/caio/projetos/dev_ia_codex_template/ai/agents/prd-auditor.md) are also optional utilities outside the default delivery graph.
+The PRD support agents [ai/agents/prd-writer.md](ai/agents/prd-writer.md), [ai/agents/prd-reviewer.md](ai/agents/prd-reviewer.md), and [ai/agents/prd-auditor.md](ai/agents/prd-auditor.md) are also optional utilities outside the default delivery graph.
 
 ## Shared Skills
 
@@ -237,4 +237,4 @@ make ai-install-skills
 
 ## Preserved Original Materials
 
-The repository was refactored from a real project. The original project-specific documentation and generated artifacts are preserved under [docs/archive/original-project](/root/desenvolvimento-vscode/dev_ia_codex_template/docs/archive/original-project) so the template retains its source context without polluting the reusable surface area.
+When template evolution needs provenance artifacts from an original project, preserve them under [docs/archive/original-project/README.md](docs/archive/original-project/README.md) without polluting the reusable surface area.
