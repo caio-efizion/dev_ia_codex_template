@@ -11,10 +11,12 @@ Read these first:
 3. `ai/system/operating-model.md`
 4. `ai/system/workflow.md`
 5. `ai/contracts/planner.contract.md`
-6. `ai/contracts/builder.contract.md`
-7. `ai/contracts/reviewer.contract.md`
-8. `ai/contracts/tester.contract.md`
-9. `ai/contracts/security.contract.md`
+6. `ai/contracts/ux-ui-designer.contract.md`
+7. `ai/contracts/builder.contract.md`
+8. `ai/contracts/reviewer.contract.md`
+9. `ai/contracts/tester.contract.md`
+10. `ai/contracts/frontend-auditor.contract.md`
+11. `ai/contracts/security.contract.md`
 
 Use instantiated project files when present:
 
@@ -64,10 +66,11 @@ Runtime logs belong in:
 2. Never implement a `todo` task directly.
 3. If no task is `ready`, promote exactly one eligible task in dependency order.
 4. If the linked spec is missing or incomplete, run specification work first.
-5. Builder, Tester, Security, and Reviewer run in that order.
-6. Stop when a phase is blocked and record the blocker in `runtime/state/agent-state.md`.
-7. Only commit a slice after it passes build, test, security, and review gates.
-8. Do not commit runtime files.
+5. `tasks/task-graph.json` is the source of truth for stage order.
+6. The default graph order after specification is UX/UI Designer, Builder, Reviewer, Tester, Frontend Auditor, then Security.
+7. Stop when a phase is blocked and record the blocker in `runtime/state/agent-state.md`.
+8. Only commit a slice after it passes build, review, test, frontend-audit, and security gates when those stages apply.
+9. Do not commit runtime files.
 
 ## Responsibilities
 
@@ -75,7 +78,7 @@ Runtime logs belong in:
 2. Ensure the backlog, task plan, registry, and context index are coherent enough for execution.
 3. Select the next eligible slice.
 4. Trigger planning or spec work when missing artifacts prevent execution.
-5. Trigger builder, tester, security, and reviewer phases for the selected slice.
+5. Trigger UX/UI Designer, builder, reviewer, tester, frontend-auditor, and security phases for the selected slice in graph order.
 6. Update runtime state and concise run summaries after each phase.
 7. In continuous mode, repeat after each accepted slice.
 

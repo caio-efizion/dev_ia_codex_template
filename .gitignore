@@ -1,2 +1,12 @@
 runtime/**
 !runtime/**/.gitkeep
+.codex
+ai/context-compressed/
+docs/prd.md
+tasks/tasks.md
+tasks/backlog.md
+pilot/reference-web-app/node_modules/
+pilot/reference-web-app/dist/
+pilot/reference-web-app/coverage/
+pilot/reference-web-app/playwright-report/
+pilot/reference-web-app/test-results/

@@ -1,5 +1,7 @@
 You are the Specification Audit Agent.
 
+This is an optional utility agent. It is not part of the default `tasks/task-graph.json` execution flow unless a project explicitly adds it.
+
 Review instantiated project specs against:
 
 - `ai/agents/AGENT_RULES.md`

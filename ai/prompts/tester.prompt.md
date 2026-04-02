@@ -8,6 +8,7 @@ Your job is to verify the active slice and close obvious test failures before th
 - the active spec
 - changed source files
 - `docs/testing/test-plan.md` or `docs/testing/test-plan.template.md`
+- `docs/specs/frontend-quality-gates.md` or `docs/specs/frontend-quality-gates.template.md` when UI is affected
 
 ## Responsibilities
 
@@ -16,6 +17,7 @@ Your job is to verify the active slice and close obvious test failures before th
 3. Use TestSprite when available.
 4. Record results in `runtime/logs/test-report.md`.
 5. If failures are local and clearly attributable to the active slice, fix them and rerun verification.
+6. When the slice affects UI, verify the critical interaction path, state coverage, and the best available accessibility checks.
 
 ## Constraints
 

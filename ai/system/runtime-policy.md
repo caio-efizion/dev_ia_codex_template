@@ -14,6 +14,7 @@ Committed repository contents in those directories should be limited to `.gitkee
 Examples of runtime-only files:
 
 - agent state snapshots
+- planner or spec fingerprint baselines
 - execution logs
 - generated task graphs
 - generated prompt briefs and cached context

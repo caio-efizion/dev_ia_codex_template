@@ -1,0 +1,4 @@
+interface:
+  display_name: "Efizion Frontend Excellence"
+  short_description: "Implement frontend with high UI, a11y, and responsive quality"
+  default_prompt: "Use the Efizion frontend excellence workflow: open the repository frontend governance docs and linked spec first, then implement or review the user-facing slice with Tailwind CSS plus shadcn/ui, explicit interaction states, WCAG AA accessibility, responsive behavior, and frontend quality gates."

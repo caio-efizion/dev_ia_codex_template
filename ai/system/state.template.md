@@ -1,21 +1,15 @@
-current_phase: not_started
+run_id: null
+run_state: not_started
+current_step: not_started
+graph_file: tasks/task-graph.json
 execution_mode: continuous
-
-completed: []
-
-pending:
-  - planning
-  - specification
-  - implementation
-  - testing
-  - security
-  - review
-
+runner_bin: not_configured
+steps: []
+completed_steps: []
+pending_steps: []
 active_agents: []
-
 last_task_id: null
 last_spec: null
-
 blockers: []
-
 run_summary: not_started
+last_updated: null

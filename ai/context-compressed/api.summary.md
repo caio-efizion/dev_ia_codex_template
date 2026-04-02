@@ -1,6 +1,19 @@
 # API Summary
 
-- API and BFF contracts are versioned and documented
-- request and response envelopes are stable across agents
-- authorization and tenant resolution are explicit parts of the contract
-- schema or endpoint drift requires doc, registry, and index updates
+- generated_at: 2026-04-02T20:24:52Z
+- api_contracts: docs/api/api-contracts.md
+- interface_spec: docs/specs/api-and-ui-interface.template.md
+
+## API Contract Sections
+
+- Scope
+- Conventions
+- Request Envelope
+- Success Envelope
+
+## Interface Spec Sections
+
+- Scope
+- Responsibilities
+- Contracts
+- UI Rules

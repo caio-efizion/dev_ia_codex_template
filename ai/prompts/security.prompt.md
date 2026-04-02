@@ -29,3 +29,4 @@ as the structure reference when it exists.
 3. secret handling and config hygiene
 4. auditability of sensitive mutations
 5. dependency or integration changes that expand attack surface
+6. frontend changes do not expose privileged behavior, unsafe rendering, or secret material in the client surface

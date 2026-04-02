@@ -11,6 +11,11 @@
       "prompt": "ai/prompts/spec.prompt.md"
     },
     {
+      "id": "ux-ui-designer",
+      "agent": "ux-ui-designer",
+      "prompt": "ai/prompts/ux-ui-designer.prompt.md"
+    },
+    {
       "id": "builder",
       "agent": "builder",
       "prompt": "ai/prompts/builder.prompt.md"
@@ -26,6 +31,11 @@
       "prompt": "ai/prompts/tester.prompt.md"
     },
     {
+      "id": "frontend-auditor",
+      "agent": "frontend-auditor",
+      "prompt": "ai/prompts/frontend-auditor.prompt.md"
+    },
+    {
       "id": "security",
       "agent": "security",
       "prompt": "ai/prompts/security.prompt.md"
@@ -38,6 +48,10 @@
     },
     {
       "from": "spec-generator",
+      "to": "ux-ui-designer"
+    },
+    {
+      "from": "ux-ui-designer",
       "to": "builder"
     },
     {
@@ -50,6 +64,10 @@
     },
     {
       "from": "tester",
+      "to": "frontend-auditor"
+    },
+    {
+      "from": "frontend-auditor",
       "to": "security"
     }
   ]

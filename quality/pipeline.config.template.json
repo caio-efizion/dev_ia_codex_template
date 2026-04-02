@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "commands": {
+    "lint": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me"
+    },
+    "typecheck": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me"
+    },
+    "unit": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me"
+    },
+    "e2e": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me"
+    },
+    "coverage": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me",
+      "summaryFile": "coverage/coverage-summary.json",
+      "minimum": {
+        "lines": 80,
+        "functions": 80,
+        "branches": 75,
+        "statements": 80
+      }
+    }
+  },
+  "frontendEvidence": {
+    "enabled": true,
+    "cwd": ".",
+    "baseUrl": "http://127.0.0.1:4173",
+    "startCommand": "replace-me",
+    "startupTimeoutMs": 120000,
+    "axeMaxSeriousViolations": 0,
+    "lighthouse": {
+      "performance": 85,
+      "accessibility": 95
+    },
+    "visualRegression": {
+      "enabled": true,
+      "baselineDir": "quality/baselines"
+    },
+    "viewports": [
+      { "id": "mobile", "width": 390, "height": 844 },
+      { "id": "tablet", "width": 1024, "height": 768 },
+      { "id": "desktop", "width": 1440, "height": 900 }
+    ],
+    "routes": [
+      {
+        "id": "replace-me",
+        "path": "/",
+        "states": [
+          { "id": "loading", "path": "/?state=loading" },
+          { "id": "empty", "path": "/?state=empty" },
+          { "id": "error", "path": "/?state=error" },
+          { "id": "success", "path": "/?state=success" }
+        ]
+      }
+    ]
+  },
+  "security": {
+    "dependencyScan": {
+      "required": true,
+      "cwd": ".",
+      "command": "replace-me"
+    },
+    "env": {
+      "allowedExampleFiles": [
+        ".env.example",
+        ".env.template",
+        ".env.sample",
+        ".env.test.example"
+      ]
+    }
+  }
+}

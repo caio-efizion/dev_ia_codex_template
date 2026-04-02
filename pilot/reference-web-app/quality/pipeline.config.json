@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "commands": {
+    "lint": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run lint"
+    },
+    "typecheck": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run typecheck"
+    },
+    "unit": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run test:unit"
+    },
+    "e2e": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run test:e2e"
+    },
+    "coverage": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run test:coverage",
+      "summaryFile": "coverage/coverage-summary.json",
+      "minimum": {
+        "lines": 85,
+        "functions": 85,
+        "branches": 80,
+        "statements": 85
+      }
+    }
+  },
+  "frontendEvidence": {
+    "enabled": true,
+    "cwd": "pilot/reference-web-app",
+    "baseUrl": "http://127.0.0.1:4173",
+    "startCommand": "npm run build && npm run preview -- --host 127.0.0.1 --port 4173",
+    "startupTimeoutMs": 120000,
+    "axeMaxSeriousViolations": 0,
+    "lighthouse": {
+      "performance": 85,
+      "accessibility": 95
+    },
+    "visualRegression": {
+      "enabled": true,
+      "baselineDir": "pilot/reference-web-app/quality/baselines"
+    },
+    "viewports": [
+      { "id": "mobile", "width": 390, "height": 844 },
+      { "id": "tablet", "width": 1024, "height": 768 },
+      { "id": "desktop", "width": 1440, "height": 900 }
+    ],
+    "routes": [
+      {
+        "id": "queue",
+        "path": "/",
+        "states": [
+          { "id": "loading", "path": "/?state=loading" },
+          { "id": "empty", "path": "/?state=empty" },
+          { "id": "error", "path": "/?state=error" },
+          { "id": "success", "path": "/?state=success" }
+        ]
+      }
+    ]
+  },
+  "security": {
+    "dependencyScan": {
+      "required": true,
+      "cwd": "pilot/reference-web-app",
+      "command": "npm run audit:deps"
+    },
+    "env": {
+      "allowedExampleFiles": [
+        ".env.example",
+        ".env.template",
+        ".env.sample",
+        ".env.test.example"
+      ]
+    }
+  }
+}

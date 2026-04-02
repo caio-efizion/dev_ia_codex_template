@@ -27,6 +27,13 @@ All agents must follow these rules when operating in this template repository or
 2. Keep runtime state, logs, and graphs out of source directories.
 3. Work one backlog slice at a time unless the orchestrator explicitly advances to the next reviewed slice.
 
+## Frontend Quality
+
+1. When a slice affects user-facing UI, follow the frontend architecture, design system, frontend quality gates, and UX journey guidance.
+2. Do not treat loading, empty, error, disabled, and success states as optional polish.
+3. Prefer semantic HTML, keyboard reachability, and visible focus before ARIA-only fixes.
+4. Keep privileged writes, secret handling, and trust decisions out of frontend code.
+
 ## Verification
 
 1. Run the best local verification available for the affected slice.

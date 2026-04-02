@@ -57,7 +57,10 @@
       "name": "API And UI Interface",
       "type": "cross-cutting",
       "specs": [
-        "api-interface-template"
+        "api-interface-template",
+        "design-system-template",
+        "frontend-quality-gates-template",
+        "ux-research-and-journeys-template"
       ],
       "apis": [
         "public-api",
@@ -99,6 +102,24 @@
       "name": "Background Jobs Template",
       "path": "docs/specs/background-jobs.template.md",
       "module": "background-jobs"
+    },
+    {
+      "id": "design-system-template",
+      "name": "Design System Template",
+      "path": "docs/specs/design-system.template.md",
+      "module": "api-interface"
+    },
+    {
+      "id": "frontend-quality-gates-template",
+      "name": "Frontend Quality Gates Template",
+      "path": "docs/specs/frontend-quality-gates.template.md",
+      "module": "api-interface"
+    },
+    {
+      "id": "ux-research-and-journeys-template",
+      "name": "UX Research And Journeys Template",
+      "path": "docs/specs/ux-research-and-journeys.template.md",
+      "module": "api-interface"
     },
     {
       "id": "repository-structure-template",

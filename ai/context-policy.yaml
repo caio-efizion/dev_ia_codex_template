@@ -1,0 +1,122 @@
+BUILDER:
+  include:
+    - context-index
+    - linked-spec
+    - specs
+    - relevant-module-sources
+    - relevant-code
+    - context-accelerators
+    - contracts
+  exclude:
+    - docs
+    - historical-context
+
+REVIEWER:
+  include:
+    - linked-spec
+    - changed-files
+    - diff
+    - relevant-module-sources
+    - context-index
+    - context-accelerators
+    - contracts
+  exclude:
+    - docs
+    - historical-context
+
+TESTER:
+  include:
+    - changed-files
+    - test-files
+    - linked-spec
+    - relevant-code
+    - context-accelerators
+  exclude:
+    - docs
+    - historical-context
+
+FRONTEND_AUDITOR:
+  include:
+    - changed-files
+    - diff
+    - linked-spec
+    - specs
+    - docs
+    - test-files
+    - context-accelerators
+  exclude:
+    - historical-context
+
+SECURITY:
+  include:
+    - changed-files
+    - linked-spec
+    - dependencies
+    - security-context
+    - context-index
+  exclude:
+    - docs
+    - historical-context
+
+PLANNER:
+  include:
+    - docs
+    - tasks
+    - context-index
+    - specs
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+
+SPEC_GENERATOR:
+  include:
+    - tasks
+    - linked-spec
+    - specs
+    - context-index
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+
+UX_UI_DESIGNER:
+  include:
+    - linked-spec
+    - specs
+    - docs
+    - context-index
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+
+PRD_WRITER:
+  include:
+    - docs
+    - context-index
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+    - dependencies
+
+PRD_REVIEWER:
+  include:
+    - docs
+    - context-index
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+    - dependencies
+
+PRD_AUDITOR:
+  include:
+    - docs
+    - context-index
+    - context-accelerators
+  exclude:
+    - relevant-code
+    - changed-files
+    - dependencies

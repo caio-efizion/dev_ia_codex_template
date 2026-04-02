@@ -11,6 +11,18 @@ specs:
     module: background-jobs
     status: template
     file_path: docs/specs/background-jobs.template.md
+  - name: design-system-template
+    module: api-interface
+    status: template
+    file_path: docs/specs/design-system.template.md
+  - name: frontend-quality-gates-template
+    module: api-interface
+    status: template
+    file_path: docs/specs/frontend-quality-gates.template.md
+  - name: ux-research-and-journeys-template
+    module: api-interface
+    status: template
+    file_path: docs/specs/ux-research-and-journeys.template.md
   - name: repository-structure-template
     module: architecture
     status: template
