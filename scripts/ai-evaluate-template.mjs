@@ -300,16 +300,20 @@ function evaluateTemplate(repoRoot) {
     {
       id: 'execution-scripts',
       area: 'Execution',
-      criterion: 'Core execution entrypoints exist for bootstrap, graph run, step runner, quality, and pilot validation',
+      criterion: 'Core execution entrypoints exist for bootstrap, adoption, graph run, step runner, quality, and pilot validation',
       status: [
         'scripts/ai-init-project.sh',
+        'scripts/ai-inspect-existing-project.mjs',
+        'scripts/ai-adopt-existing.sh',
+        'scripts/ai-audit-security.sh',
+        'scripts/ai-audit-frontend.sh',
         'scripts/ai-workflow.sh',
         'scripts/ai-run-graph.sh',
         'scripts/ai-step-runner-codex.sh',
         'scripts/ai-run-quality-gates.sh',
         'scripts/ai-run-pilot-validation.sh',
       ].every((relativePath) => fileExists(repoRoot, relativePath)) ? 'pass' : 'fail',
-      evidence: 'scripts/ai-init-project.sh, scripts/ai-workflow.sh, scripts/ai-run-graph.sh, scripts/ai-step-runner-codex.sh, scripts/ai-run-quality-gates.sh, scripts/ai-run-pilot-validation.sh',
+      evidence: 'scripts/ai-init-project.sh, scripts/ai-inspect-existing-project.mjs, scripts/ai-adopt-existing.sh, scripts/ai-audit-security.sh, scripts/ai-audit-frontend.sh, scripts/ai-workflow.sh, scripts/ai-run-graph.sh, scripts/ai-step-runner-codex.sh, scripts/ai-run-quality-gates.sh, scripts/ai-run-pilot-validation.sh',
     },
     {
       id: 'makefile-template-targets',
@@ -330,6 +334,17 @@ function evaluateTemplate(repoRoot) {
         hasMakeTarget(makefileText, 'ai-flow-strict')
       ) ? 'pass' : 'fail',
       evidence: 'Makefile targets ai-define, ai-build, ai-prove, ai-flow, and ai-flow-strict',
+    },
+    {
+      id: 'makefile-adoption-targets',
+      area: 'Execution',
+      criterion: 'Makefile exposes explicit adoption commands for existing active projects',
+      status: (
+        hasMakeTarget(makefileText, 'ai-adopt-existing') &&
+        hasMakeTarget(makefileText, 'ai-audit-security') &&
+        hasMakeTarget(makefileText, 'ai-audit-frontend')
+      ) ? 'pass' : 'fail',
+      evidence: 'Makefile targets ai-adopt-existing, ai-audit-security, and ai-audit-frontend',
     },
     {
       id: 'security-surface',
@@ -411,6 +426,24 @@ function evaluateTemplate(repoRoot) {
       evidence: 'README.md, docs/developer-guide.md, and AGENTS.md mention ai-define, ai-build, and ai-prove',
     },
     {
+      id: 'adoption-docs',
+      area: 'Governance',
+      criterion: 'Root docs present an adoption flow for existing active repositories',
+      status: (
+        readmeText.includes('ai-adopt-existing') &&
+        readmeText.includes('ai-audit-security') &&
+        readmeText.includes('ai-audit-frontend') &&
+        developerGuideText.includes('ai-adopt-existing') &&
+        developerGuideText.includes('ai-audit-security') &&
+        developerGuideText.includes('ai-audit-frontend') &&
+        agentsText.includes('ai-adopt-existing') &&
+        agentsText.includes('ai-audit-security') &&
+        agentsText.includes('ai-audit-frontend') &&
+        fileExists(repoRoot, 'docs/adoption/README.md')
+      ) ? 'pass' : 'fail',
+      evidence: 'README.md, docs/developer-guide.md, AGENTS.md, and docs/adoption/README.md must describe the existing-project adoption flow',
+    },
+    {
       id: 'template-vs-prd-separation',
       area: 'Governance',
       criterion: 'Docs make clear that strict PRD scoring is a project gate, not a template baseline gate',
@@ -425,11 +458,11 @@ function evaluateTemplate(repoRoot) {
 
   const dimensions = {
     structure: ['required-surfaces', 'graph-integrity'],
-    execution: ['execution-scripts', 'makefile-template-targets', 'makefile-workflow-targets'],
+    execution: ['execution-scripts', 'makefile-template-targets', 'makefile-workflow-targets', 'makefile-adoption-targets'],
     security: ['security-surface'],
     cleanliness: ['baseline-cleanliness', 'runtime-cleanliness', 'reports-cleanliness', 'pilot-hygiene'],
     portability: ['portability'],
-    governance: ['template-docs', 'workflow-docs', 'template-vs-prd-separation'],
+    governance: ['template-docs', 'workflow-docs', 'adoption-docs', 'template-vs-prd-separation'],
   }
 
   const dimensionScores = Object.fromEntries(

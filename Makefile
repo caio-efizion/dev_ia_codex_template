@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 export AI_STEP_RUNNER_BIN ?= ./scripts/ai-step-runner-codex.sh
 
-.PHONY: ai-init ai-init-full ai-prd ai-prd-review ai-prd-score ai-template-validate ai-template-score ai-define ai-plan ai-build ai-prove ai-flow ai-flow-strict ai-review ai-test ai-run ai-run-strict ai-run-graph ai-refresh-context ai-install-skills ai-quality-gates ai-pilot-validate
+.PHONY: ai-init ai-init-full ai-prd ai-prd-review ai-prd-score ai-template-validate ai-template-score ai-adopt-existing ai-audit-security ai-audit-frontend ai-define ai-plan ai-build ai-prove ai-flow ai-flow-strict ai-review ai-test ai-run ai-run-strict ai-run-graph ai-refresh-context ai-install-skills ai-quality-gates ai-pilot-validate
 
 ai-init:
 	./scripts/ai-init-project.sh
@@ -23,6 +23,15 @@ ai-template-validate:
 
 ai-template-score:
 	./scripts/ai-score-template.sh
+
+ai-adopt-existing:
+	./scripts/ai-adopt-existing.sh
+
+ai-audit-security:
+	./scripts/ai-audit-security.sh
+
+ai-audit-frontend:
+	./scripts/ai-audit-frontend.sh
 
 ai-define:
 	./scripts/ai-workflow.sh define

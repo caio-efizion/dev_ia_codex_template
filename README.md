@@ -94,6 +94,23 @@ For one-shot automation:
 
 Fine-grained commands such as `make ai-plan`, `make ai-review`, `make ai-test`, and `make ai-run-graph` remain available for expert use, debugging, or targeted reruns.
 
+## Adopting Existing Projects
+
+When the repository is already active and you want to bring it under the template controls without pretending it is greenfield:
+
+- `make ai-adopt-existing`: inspect the repo, seed `quality/pipeline.config.json`, prefill safe questionnaire fields, and write `docs/adoption/existing-system-inventory.md`
+- `make ai-audit-security`: run a whole-repository security audit and write `docs/audit/security-report.md`
+- `make ai-audit-frontend`: audit the current frontend against the Efizion baseline and write `docs/audit/frontend-audit.md`
+
+Recommended adoption order:
+
+1. run `make ai-adopt-existing`
+2. review `docs/adoption/existing-system-inventory.md`
+3. run `make ai-audit-security`
+4. run `make ai-audit-frontend`
+5. refine `docs/prd-questionnaire.md` with `delivery_mode: existing-product-evolution`, system context, and must-preserve contracts
+6. continue with `make ai-define`, `make ai-build`, and `make ai-prove`
+
 ## Execution Layer
 
 - `scripts/ai-init-project.sh` bootstraps a working project in `PRD-first` mode by default, creating the minimal authoring surface plus runtime scaffolding and compressed context.
@@ -108,7 +125,7 @@ Fine-grained commands such as `make ai-plan`, `make ai-review`, `make ai-test`, 
 - `scripts/ai-run-stage-validators.sh` enforces pre-step and post-step security validators around each stage.
 - `scripts/ai-run-quality-gates.sh` runs blocking lint, typecheck, unit, e2e, coverage, accessibility, Lighthouse, screenshot, and visual-regression checks for a slice.
 - `scripts/ai-run-pilot-validation.sh` runs the versioned PRD-first pilot flow in a temporary Git workspace and writes durable evidence to `reports/pilot-validation.md`.
-- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-define`, `make ai-build`, `make ai-prove`, `make ai-flow`, `make ai-flow-strict`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
+- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-adopt-existing`, `make ai-audit-security`, `make ai-audit-frontend`, `make ai-define`, `make ai-build`, `make ai-prove`, `make ai-flow`, `make ai-flow-strict`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
 
 ## Security By Design
 
@@ -180,6 +197,8 @@ The PRD quality system separates three axes that should not be confused:
 - `project_profile`: what kind of product or system this is
 - `technical_stack`: what technologies will implement it
 - `delivery_mode`: how the work is being delivered, such as greenfield, MVP, migration, or evolution of an existing product
+
+For existing projects, prefer `delivery_mode: existing-product-evolution` and make `Existing system context` plus `Must-preserve contracts or dependencies` explicit before any broad refactor slice starts.
 
 When you want enforcement instead of guidance, use:
 

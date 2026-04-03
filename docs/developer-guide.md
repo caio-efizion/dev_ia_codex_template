@@ -95,6 +95,8 @@ For maintainers of the template itself, use `make ai-template-validate` and `mak
 
 For day-to-day operators, the preferred project flow is `make ai-define`, `make ai-build`, and `make ai-prove`. The older `make ai-run` and `make ai-run-strict` remain the one-shot automation surface, while `make ai-plan`, `make ai-review`, `make ai-test`, and `make ai-run-graph` are finer-grained expert controls.
 
+For projects that already exist and need to be brought under the template controls after delivery has started, use `make ai-adopt-existing`, `make ai-audit-security`, and `make ai-audit-frontend` before the normal define/build/prove loop.
+
 ## 4. Starting AI Development
 
 ### `make ai-init`
@@ -155,6 +157,34 @@ This command:
 - treats cleanliness, portability, execution readiness, security baseline, and governance clarity as the scoring dimensions
 - writes an ephemeral report to `runtime/logs/template-score.md`
 - uses `AI_TEMPLATE_MIN_SCORE` with a default target of `90`
+
+### `make ai-adopt-existing`
+
+This command:
+
+- prepares an already active repository for template adoption
+- runs the minimal bootstrap safely
+- inspects the existing stack and writes `docs/adoption/existing-system-inventory.md`
+- seeds `quality/pipeline.config.json` when it is missing
+- prefills safe questionnaire fields for `existing-product-evolution`
+
+### `make ai-audit-security`
+
+This command:
+
+- runs a whole-repository security audit instead of a slice-local validator pass
+- reuses the same output validator family used by the delivery pipeline
+- writes durable findings to `reports/security/<run-id>/`
+- writes the summary report to `docs/audit/security-report.md`
+
+### `make ai-audit-frontend`
+
+This command:
+
+- audits the current frontend against the Efizion frontend baseline
+- checks governance docs, quality config readiness, evidence settings, styling signals, token signals, and refactor indicators
+- writes the summary report to `docs/audit/frontend-audit.md`
+- uses `AI_FRONTEND_AUDIT_MIN_SCORE` with a default threshold of `70`
 
 ### `make ai-define`
 
@@ -266,6 +296,12 @@ The framework expects the following flow:
 1. PRD defines the product and operating constraints.
 2. `make ai-build` runs Planner, Spec Generator, UX/UI Designer, and Builder for the active slice.
 3. `make ai-prove` runs Reviewer, Tester, Frontend Auditor, and Security for the active slice.
+
+For an existing project that is being adopted into the framework, prepend this flow with:
+
+1. `make ai-adopt-existing`
+2. `make ai-audit-security`
+3. `make ai-audit-frontend`
 
 The exact execution order is controlled by `tasks/task-graph.json`. The graph engine validates the graph, resolves a topological order, and executes stages in that order. This prevents accidental stage reordering and makes the pipeline explicit rather than implied by shell scripts. The default graph order is Planner -> Spec Generator -> UX/UI Designer -> Builder -> Reviewer -> Tester -> Frontend Auditor -> Security.
 

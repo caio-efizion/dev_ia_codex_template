@@ -84,6 +84,9 @@ The guided PRD commands are:
 - `make ai-prd-score` to maintain the PRD quality checklist and formal gate score
 - `make ai-template-validate` to validate the reusable template baseline without treating placeholder PRDs as project blockers
 - `make ai-template-score` to score template cleanliness, portability, execution readiness, and safety against a baseline quality target
+- `make ai-adopt-existing` to onboard an already active repository into the template controls
+- `make ai-audit-security` to run a whole-repository security audit using the same validator family used by the delivery pipeline
+- `make ai-audit-frontend` to audit an existing frontend against the Efizion frontend baseline and produce a refactor-oriented report
 - `make ai-define` to bootstrap the repository and prepare the project PRD gate in one operator command
 - `make ai-build` to execute the build phase of the active slice through planner, spec generation, UX/UI refinement, and implementation
 - `make ai-prove` to execute reviewer, tester, frontend auditor, and security as a single proving phase
@@ -106,6 +109,14 @@ For template maintenance, keep this distinction explicit:
 
 1. `make ai-template-validate` and `make ai-template-score` measure the reusable template baseline
 2. `make ai-prd-score`, `make ai-build`, `make ai-prove`, and `make ai-run-strict` operate on the project PRD after a repository is instantiated from the template
+
+For already active repositories that are adopting the template after delivery has started:
+
+1. `make ai-adopt-existing`
+2. `make ai-audit-security`
+3. `make ai-audit-frontend`
+4. refine the questionnaire with legacy constraints and must-preserve contracts
+5. continue with `make ai-define`, `make ai-build`, and `make ai-prove`
 
 ## Preserved Source Material
 

@@ -2,6 +2,15 @@
 
 Use this flow to turn the Efizion template into a project-specific working repository.
 
+When the target repository already exists and is in active use, start with:
+
+1. `make ai-adopt-existing`
+2. `make ai-audit-security`
+3. `make ai-audit-frontend`
+4. review `docs/adoption/existing-system-inventory.md`
+5. refine the questionnaire with legacy constraints and must-preserve contracts
+6. continue with the normal define/build/prove flow
+
 The fastest path is:
 
 1. create a new repository from this template

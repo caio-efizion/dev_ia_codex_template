@@ -49,6 +49,12 @@ When humans drive execution manually, use:
 
 Use `make ai-flow` or `make ai-flow-strict` when one command is preferred. Use `make ai-run` or `make ai-run-strict` for one-shot automation and CI-oriented full graph execution.
 
+When adopting the template into an already active repository, prepend the operator flow with:
+
+1. `make ai-adopt-existing`
+2. `make ai-audit-security`
+3. `make ai-audit-frontend`
+
 ## Agent Roles
 
 | Agent | Responsibility | Primary Outputs |
