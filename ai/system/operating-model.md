@@ -81,6 +81,7 @@ Optional authoring utilities can exist outside the main delivery graph, such as 
 6. In new project repositories, treat placeholder working files as scaffolding to regenerate from the PRD, not as content to preserve.
 7. Treat `security/security-policy.md` and the matching `security/agent-guards/*.guard.md` as hard constraints for every stage.
 8. Treat `reports/security/` and `reports/slices/` as durable evidence required to prove execution quality.
+9. When strict convergence is enabled, block downstream execution until critical non-template docs and registry/index artifacts are free of unresolved placeholders and template references.
 
 ## Delivery Rules
 

@@ -92,7 +92,7 @@ run_build() {
   local strict="${1:-0}"
 
   if [[ "$strict" == "1" ]]; then
-    run_step "Build the active slice with strict PRD enforcement" env AI_ENFORCE_PRD_QUALITY=1 ./scripts/ai-run-graph.sh builder
+    run_step "Build the active slice with strict PRD and convergence enforcement" env AI_ENFORCE_PRD_QUALITY=1 AI_ENFORCE_SPEC_CONVERGENCE=1 ./scripts/ai-run-graph.sh builder
     return 0
   fi
 

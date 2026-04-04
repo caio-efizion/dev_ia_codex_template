@@ -89,10 +89,12 @@ The guided PRD commands are:
 - `make ai-audit-frontend` to audit an existing frontend against the Efizion frontend baseline and produce a refactor-oriented report
 - `make ai-define` to bootstrap the repository and prepare the project PRD gate in one operator command
 - `make ai-build` to execute the build phase of the active slice through planner, spec generation, UX/UI refinement, and implementation
+- `make ai-build-strict` to run the same build phase with strict post-spec convergence enforcement
 - `make ai-prove` to execute reviewer, tester, frontend auditor, and security as a single proving phase
 - `make ai-flow` to run `define -> build -> prove`
 - `make ai-flow-strict` to run the same macro flow with strict project PRD enforcement on execution phases
 - `make ai-run-strict` to enforce PRD quality before the full delivery pipeline runs
+- `make ai-placeholder-audit` to audit unresolved placeholders and template-reference leakage in critical instantiated-project artifacts
 - `make ai-quality-gates` to run the blocking quality suite for a specific slice with `AI_SLICE_ID=<slice-id>`
 - `make ai-pilot-validate` to execute the versioned pilot validation flow and write `reports/pilot-validation.md`
 

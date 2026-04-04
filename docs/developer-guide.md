@@ -202,6 +202,15 @@ This command:
 - resolves graph dependencies automatically up to `builder`
 - therefore runs planner, spec-generator, UX/UI Designer, and Builder in dependency order
 
+### `make ai-build-strict`
+
+This command:
+
+- runs the same build phase as `make ai-build`
+- enables `AI_ENFORCE_SPEC_CONVERGENCE=1`
+- blocks downstream execution when core instantiated-project docs still contain `{{...}}` placeholders
+- blocks downstream execution when critical registry/index artifacts still reference `*.template.md`
+
 ### `make ai-prove`
 
 This command:
@@ -254,10 +263,19 @@ For human operators, prefer `make ai-build` and `make ai-prove` unless a single-
 This command:
 
 - runs the same graph engine as `make ai-run`
-- enables `AI_ENFORCE_PRD_QUALITY=1`
+- enables `AI_ENFORCE_PRD_QUALITY=1` and `AI_ENFORCE_SPEC_CONVERGENCE=1`
 - blocks execution unless `docs/audit/prd-score.md` meets the configured gate
+- blocks execution when strict convergence checks detect unresolved placeholders in critical source artifacts
 - is the recommended mode when a project should not proceed with a weak PRD
 - is a project PRD gate, not the quality score for the reusable template baseline
+
+### `make ai-placeholder-audit`
+
+This command:
+
+- audits unresolved placeholders in critical instantiated-project docs
+- checks architecture/API/domain/testing docs and planning/index artifacts used by planner/spec-generator
+- supports strict convergence validation used by `make ai-build-strict` and `make ai-run-strict`
 
 ### `make ai-run-graph`
 

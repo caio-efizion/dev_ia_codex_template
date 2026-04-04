@@ -84,6 +84,7 @@ For day-to-day project delivery, the preferred human-facing surface is:
 
 - `make ai-define`: bootstrap the repo and prepare the project PRD gate
 - `make ai-build`: execute planner -> spec-generator -> ux-ui-designer -> builder for the active slice
+- `make ai-build-strict`: run the same build phase with strict convergence enforcement after spec generation
 - `make ai-prove`: execute reviewer -> tester -> frontend-auditor -> security for the active slice
 
 For one-shot automation:
@@ -91,6 +92,7 @@ For one-shot automation:
 - `make ai-flow`: run `define -> build -> prove`
 - `make ai-flow-strict`: run the same operator flow with strict project PRD enforcement on the execution phases
 - `make ai-run` and `make ai-run-strict`: keep the original single-command full graph execution for automation and CI
+- `make ai-placeholder-audit`: audit unresolved placeholders and template-reference leakage in critical instantiated-project docs
 
 Fine-grained commands such as `make ai-plan`, `make ai-review`, `make ai-test`, and `make ai-run-graph` remain available for expert use, debugging, or targeted reruns.
 
@@ -120,12 +122,13 @@ Recommended adoption order:
 - `scripts/ai-build-prd.sh` runs a guided PRD authoring pass from the questionnaire into `docs/prd.md`.
 - `scripts/ai-review-prd.sh` performs a critical PRD quality review and writes the result to `docs/audit/prd-review.md`.
 - `scripts/ai-score-prd.sh` maintains the reusable PRD quality checklist and writes a formal gate score to `docs/audit/prd-score.md`.
+- `scripts/ai-placeholder-audit.sh` audits unresolved placeholders and template references in critical convergence artifacts.
 - `scripts/ai-refresh-context.sh` regenerates the compressed summaries in `ai/context-compressed/` from working docs while ignoring `*.template.md` spec files.
 - `scripts/ai-install-shared-skills.sh` installs versioned repository skills from `skills/` into `${CODEX_HOME:-~/.codex}/skills`.
 - `scripts/ai-run-stage-validators.sh` enforces pre-step and post-step security validators around each stage.
 - `scripts/ai-run-quality-gates.sh` runs blocking lint, typecheck, unit, e2e, coverage, accessibility, Lighthouse, screenshot, and visual-regression checks for a slice.
 - `scripts/ai-run-pilot-validation.sh` runs the versioned PRD-first pilot flow in a temporary Git workspace and writes durable evidence to `reports/pilot-validation.md`.
-- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-adopt-existing`, `make ai-audit-security`, `make ai-audit-frontend`, `make ai-define`, `make ai-build`, `make ai-prove`, `make ai-flow`, `make ai-flow-strict`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
+- `make ai-init`, `make ai-init-full`, `make ai-prd`, `make ai-prd-review`, `make ai-prd-score`, `make ai-template-validate`, `make ai-template-score`, `make ai-adopt-existing`, `make ai-audit-security`, `make ai-audit-frontend`, `make ai-define`, `make ai-build`, `make ai-build-strict`, `make ai-prove`, `make ai-flow`, `make ai-flow-strict`, `make ai-run`, `make ai-run-strict`, `make ai-run-graph`, `make ai-refresh-context`, `make ai-install-skills`, `make ai-quality-gates`, `make ai-placeholder-audit`, `make ai-pilot-validate`, and the other `make ai-*` targets provide a stable command surface for local execution.
 
 ## Security By Design
 

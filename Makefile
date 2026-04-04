@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 export AI_STEP_RUNNER_BIN ?= ./scripts/ai-step-runner-codex.sh
 
-.PHONY: ai-init ai-init-full ai-prd ai-prd-review ai-prd-score ai-template-validate ai-template-score ai-adopt-existing ai-audit-security ai-audit-frontend ai-define ai-plan ai-build ai-prove ai-flow ai-flow-strict ai-review ai-test ai-run ai-run-strict ai-run-graph ai-refresh-context ai-install-skills ai-quality-gates ai-pilot-validate
+.PHONY: ai-init ai-init-full ai-prd ai-prd-review ai-prd-score ai-template-validate ai-template-score ai-adopt-existing ai-audit-security ai-audit-frontend ai-define ai-plan ai-build ai-build-strict ai-prove ai-flow ai-flow-strict ai-review ai-test ai-run ai-run-strict ai-run-graph ai-refresh-context ai-install-skills ai-quality-gates ai-placeholder-audit ai-pilot-validate
 
 ai-init:
 	./scripts/ai-init-project.sh
@@ -42,6 +42,9 @@ ai-plan:
 ai-build:
 	./scripts/ai-run-graph.sh builder
 
+ai-build-strict:
+	AI_ENFORCE_SPEC_CONVERGENCE=1 ./scripts/ai-run-graph.sh builder
+
 ai-prove:
 	./scripts/ai-workflow.sh prove
 
@@ -61,7 +64,7 @@ ai-run:
 	./scripts/ai-run-graph.sh
 
 ai-run-strict:
-	AI_ENFORCE_PRD_QUALITY=1 ./scripts/ai-run-graph.sh
+	AI_ENFORCE_PRD_QUALITY=1 AI_ENFORCE_SPEC_CONVERGENCE=1 ./scripts/ai-run-graph.sh
 
 ai-run-graph:
 	bash scripts/ai-run-graph.sh
@@ -74,6 +77,9 @@ ai-install-skills:
 
 ai-quality-gates:
 	./scripts/ai-run-quality-gates.sh --slice "$${AI_SLICE_ID:?set AI_SLICE_ID}"
+
+ai-placeholder-audit:
+	./scripts/ai-placeholder-audit.sh
 
 ai-pilot-validate:
 	./scripts/ai-run-pilot-validation.sh

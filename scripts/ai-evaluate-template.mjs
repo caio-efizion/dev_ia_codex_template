@@ -246,6 +246,8 @@ function evaluateTemplate(repoRoot) {
   const readmeText = readText(repoRoot, 'README.md')
   const agentsText = readText(repoRoot, 'AGENTS.md')
   const developerGuideText = readText(repoRoot, 'docs/developer-guide.md')
+  const runGraphText = readText(repoRoot, 'scripts/ai-run-graph.sh')
+  const workflowScriptText = readText(repoRoot, 'scripts/ai-workflow.sh')
   const graph = parseGraph(repoRoot)
   const absolutePathRefs = findAbsolutePathReferences(repoRoot, trackedFiles)
   const runtimeUnexpectedFiles = findUnexpectedFiles(repoRoot, 'runtime', new Set([
@@ -329,11 +331,24 @@ function evaluateTemplate(repoRoot) {
       status: (
         hasMakeTarget(makefileText, 'ai-define') &&
         hasMakeTarget(makefileText, 'ai-build') &&
+        hasMakeTarget(makefileText, 'ai-build-strict') &&
         hasMakeTarget(makefileText, 'ai-prove') &&
         hasMakeTarget(makefileText, 'ai-flow') &&
         hasMakeTarget(makefileText, 'ai-flow-strict')
       ) ? 'pass' : 'fail',
-      evidence: 'Makefile targets ai-define, ai-build, ai-prove, ai-flow, and ai-flow-strict',
+      evidence: 'Makefile targets ai-define, ai-build, ai-build-strict, ai-prove, ai-flow, and ai-flow-strict',
+    },
+    {
+      id: 'convergence-audit-surface',
+      area: 'Execution',
+      criterion: 'Template exposes placeholder audit and strict convergence controls for instantiated projects',
+      status: (
+        hasMakeTarget(makefileText, 'ai-placeholder-audit') &&
+        fileExists(repoRoot, 'scripts/ai-placeholder-audit.sh') &&
+        runGraphText.includes('AI_ENFORCE_SPEC_CONVERGENCE') &&
+        workflowScriptText.includes('AI_ENFORCE_SPEC_CONVERGENCE')
+      ) ? 'pass' : 'fail',
+      evidence: 'make ai-placeholder-audit, scripts/ai-placeholder-audit.sh, and AI_ENFORCE_SPEC_CONVERGENCE wiring in run graph and strict workflow',
     },
     {
       id: 'makefile-adoption-targets',
@@ -458,7 +473,7 @@ function evaluateTemplate(repoRoot) {
 
   const dimensions = {
     structure: ['required-surfaces', 'graph-integrity'],
-    execution: ['execution-scripts', 'makefile-template-targets', 'makefile-workflow-targets', 'makefile-adoption-targets'],
+    execution: ['execution-scripts', 'makefile-template-targets', 'makefile-workflow-targets', 'convergence-audit-surface', 'makefile-adoption-targets'],
     security: ['security-surface'],
     cleanliness: ['baseline-cleanliness', 'runtime-cleanliness', 'reports-cleanliness', 'pilot-hygiene'],
     portability: ['portability'],

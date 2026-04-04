@@ -43,3 +43,22 @@ Update the spec registry and context index when new specs or relationships are i
 Replace placeholder entries in the registry and context index when the active slice makes the intended project structure clear.
 If the active backlog slice still points to a `*.template.md` spec path, create a real project spec under `docs/specs/` and update the backlog, registry, and context index to point to that concrete file.
 If the active slice affects user-facing UI, make design-system alignment, state coverage, accessibility, and responsive behavior explicit in the spec instead of leaving them implicit.
+
+## Convergence Checklist (Blocking For Strict Build)
+
+Before finishing, verify and update these artifacts when they are still scaffolded:
+
+1. `docs/architecture/architecture.md`
+2. `docs/architecture/module-map.md`
+3. `docs/adr/0001-system-architecture.md`
+4. `docs/architecture/security-model.md`
+5. `docs/architecture/tenant-isolation.md`
+6. `docs/api/api-contracts.md`
+7. `docs/database/database-schema.md`
+8. `docs/domain/domain-model.md`
+9. `docs/testing/test-plan.md`
+
+Strict execution expects these outputs:
+
+- no unresolved `{{...}}` placeholders in non-template architecture/API/domain/testing docs
+- no `.template.md` references in `ai/context-index/context-map.json`, `ai/spec-registry/specs.yaml`, or active slice links in `tasks/backlog.md`

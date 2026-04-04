@@ -7,6 +7,7 @@ GRAPH_FILE="${REPO_ROOT}/tasks/task-graph.json"
 RUN_ID=$(date -u '+%Y%m%dT%H%M%SZ')
 RUNNER_BIN="${AI_STEP_RUNNER_BIN:-${SCRIPT_DIR}/ai-step-runner-codex.sh}"
 ENFORCE_PRD_QUALITY="${AI_ENFORCE_PRD_QUALITY:-0}"
+ENFORCE_SPEC_CONVERGENCE="${AI_ENFORCE_SPEC_CONVERGENCE:-0}"
 PRD_QUALITY_SCORE_FILE="${REPO_ROOT}/docs/audit/prd-score.md"
 PRD_MIN_SCORE="${AI_PRD_MIN_SCORE:-80}"
 PRD_MIN_READINESS_LEVEL="${AI_PRD_MIN_READINESS_LEVEL:-L4}"
@@ -44,6 +45,7 @@ CURRENT_PLANNER_INPUT_FINGERPRINT=""
 CURRENT_SPEC_INPUT_FINGERPRINT=""
 CURRENT_SPEC_CONTENT_FINGERPRINT=""
 CURRENT_CONTEXT_REFRESH_FINGERPRINT=""
+SPEC_CONVERGENCE_VERIFIED=0
 
 fail() {
   printf 'ai-run-graph: %s\n' "$1" >&2
@@ -871,6 +873,27 @@ execution_requires_prd_quality_gate() {
   done
 
   return 1
+}
+
+execution_requires_spec_convergence_gate() {
+  if ! is_truthy "$ENFORCE_SPEC_CONVERGENCE"; then
+    return 1
+  fi
+
+  return 0
+}
+
+enforce_spec_convergence_gate() {
+  if ! execution_requires_spec_convergence_gate; then
+    return 0
+  fi
+
+  if (( SPEC_CONVERGENCE_VERIFIED == 1 )); then
+    return 0
+  fi
+
+  "${REPO_ROOT}/scripts/ai-placeholder-audit.sh" --strict
+  SPEC_CONVERGENCE_VERIFIED=1
 }
 
 enforce_prd_quality_gate() {
@@ -2489,6 +2512,11 @@ verify_required_step_outputs() {
   local expected_slice_dir
 
   case "$step" in
+    spec-generator)
+      if execution_requires_spec_convergence_gate; then
+        enforce_spec_convergence_gate
+      fi
+      ;;
     ux-ui-designer)
       [[ -f "${REPO_ROOT}/runtime/logs/ux-ui-designer-report.md" ]] || fail "ux-ui-designer did not produce runtime/logs/ux-ui-designer-report.md"
       ;;
@@ -2638,6 +2666,12 @@ run_step() {
     printf '%s\n' "skipped ${step}: ${skip_reason}"
     return 0
   fi
+
+  case "$step" in
+    builder|reviewer|tester|frontend-auditor|security)
+      enforce_spec_convergence_gate
+      ;;
+  esac
 
   for (( attempt = 1; attempt <= STAGE_MAX_RETRIES; attempt += 1 )); do
     if execute_step_attempt "$step" "$agent_file" "$prompt_file" "$brief_file" "$attempt"; then
