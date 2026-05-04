@@ -10,6 +10,7 @@ This document defines the default visual and interaction language for frontend w
 - use shadcn/ui for accessible, production-grade primitives when the framework supports it
 - treat shadcn/ui as a starting point, not as unedited demo UI
 - centralize colors, spacing, radius, shadows, and motion through tokens
+- document the theme strategy explicitly; do not assume dark mode unless the product requires it
 
 ## Visual Direction
 
@@ -22,14 +23,14 @@ This document defines the default visual and interaction language for frontend w
 ### Typography
 
 - use one font family across product UI
-- recommended defaults: `Inter` or `Geist Sans`
+- choose the font family explicitly for the project; do not leave the final UI on browser defaults
 - create clear scale steps for page title, section title, body, helper text, and caption
 - use weight and size to create hierarchy before adding decoration
 
 ### Color System
 
 - define semantic tokens for background, foreground, muted, border, accent, success, warning, and destructive states
-- support both light and dark mode from the same token system
+- support the chosen theme strategy from the same token system
 - avoid one-off hex values in components when a semantic token should exist
 - interactive states must have explicit hover, active, focus, disabled, and loading styling
 
@@ -69,3 +70,4 @@ This document defines the default visual and interaction language for frontend w
 - prefer tokenized Tailwind classes over arbitrary values
 - document any intentional design system exceptions in the linked spec
 - do not ship frontend work that skips state design just because backend integration is incomplete
+- keep loading, empty, error, and success states part of the design system vocabulary

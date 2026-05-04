@@ -12,7 +12,7 @@ If the selected stack has no browser UI, mark this document as not applicable an
 - component primitives: shadcn/ui when the chosen framework is compatible
 - design tokens: CSS custom properties wired into Tailwind theme tokens
 - iconography: one consistent icon set for the whole product
-- form patterns: shared field wrappers with label, description, and error slots
+- form patterns: shared field wrappers with label, description, error, and pending slots
 
 If the chosen frontend stack cannot support shadcn/ui directly, document the replacement component strategy explicitly and preserve the same quality bar.
 
@@ -65,6 +65,7 @@ Own:
 4. Make server/client boundaries explicit when the framework supports both rendering modes.
 5. Every async screen must define loading, empty, error, and success behavior.
 6. Frontend code must not own privileged writes or trust decisions.
+7. Preserve an existing validated UI language unless a documented task requires a redesign.
 
 ## Recommended Repository Shape
 
@@ -90,6 +91,7 @@ src/
 - route transitions and async actions should provide immediate feedback
 - destructive actions should require explicit confirmation
 - forms should expose validation near the triggering field and at summary level when needed
+- visible loading states should be part of the default page architecture, not an afterthought
 
 ## Accessibility Baseline
 

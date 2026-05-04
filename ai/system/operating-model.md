@@ -9,6 +9,7 @@ This document defines how agents should operate in this template repository and 
 3. Work is planned and executed one reviewed slice at a time.
 4. Architectural relationships are maintained explicitly through specs, the registry, and the context index.
 5. A generated project repository becomes execution-ready by deriving project artifacts from the PRD, not by manually materializing every template file upfront.
+6. Template files are fallback artifacts, not the primary execution surface.
 
 ## Canonical Surfaces
 
@@ -24,6 +25,15 @@ This document defines how agents should operate in this template repository and 
 - `security/`: security policy, per-agent guards, and validators
 - `reports/`: durable validation evidence and pilot outputs
 - `runtime/`: execution-only state, logs, and graphs
+
+## Operating Model
+
+- real project docs win over template guidance
+- exactly one slice should be ready at a time
+- task execution should follow the backlog and task graph, not ad hoc file order
+- keep runtime state, logs, and graphs under `runtime/`
+- update the context index and spec registry whenever modules, APIs, schemas, or specs change
+- keep frontend architecture, design system, and quality gates aligned with user-facing work
 
 ## Template Lifecycle
 

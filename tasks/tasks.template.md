@@ -4,7 +4,7 @@
 
 ### `{{FOUNDATION_TASK_ID}}` - Repository Bootstrap
 
-Description: instantiate `{{PROJECT_NAME}}` from the AI development template and replace all placeholders.
+Description: instantiate `{{PROJECT_NAME}}` from the AI development template, replace all placeholders, and establish the real docs, context index, spec registry, and backlog flow.
 
 Dependencies: none.
 
@@ -13,6 +13,7 @@ Acceptance criteria:
 - core docs are instantiated
 - context index reflects real modules
 - spec registry lists real specs
+- runtime and template responsibilities are separated
 
 ## Phase 2 - Platform Core
 
@@ -27,6 +28,7 @@ Acceptance criteria:
 - tenant or ownership context is explicit
 - authorization is server-controlled
 - API contracts and schema docs are updated
+- security and architecture docs stay aligned
 
 ## Phase 3 - Domain Modules
 
@@ -41,3 +43,17 @@ Acceptance criteria:
 - module ownership is explicit
 - spec and backlog slices are defined
 - verification covers the new behavior
+
+## Phase 4 - Delivery Surface
+
+### `{{FRONTEND_TASK_ID}}` - Frontend Alignment
+
+Description: align user-facing screens, shared UI primitives, and quality gates with the validated product direction.
+
+Dependencies: `{{CORE_TASK_ID}}`.
+
+Acceptance criteria:
+
+- interface states are explicit
+- accessibility and responsive behavior are documented
+- frontend quality gates are defined

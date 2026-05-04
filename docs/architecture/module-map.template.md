@@ -21,3 +21,4 @@
 
 - Replace placeholder module rows with the real `{{MAIN_MODULES}}`.
 - Keep this file synchronized with `ai/context-index/context-map.json`.
+- Update the map whenever modules, APIs, schemas, or specs change.

@@ -18,6 +18,7 @@ This document defines the target architecture for `{{PROJECT_NAME}}`.
 3. Keep protected writes server-controlled.
 4. Separate durable docs from runtime execution artifacts.
 5. Make architectural relationships discoverable through context layers and indexes.
+6. Keep execution governed by the real backlog, not by template bootstrap files.
 
 ## Runtime Topology
 
@@ -25,6 +26,16 @@ This document defines the target architecture for `{{PROJECT_NAME}}`.
 - background processing: `{{BACKGROUND_RUNTIME}}`
 - system of record: `{{DATA_STORE}}`
 - external integrations: `{{INTEGRATIONS}}`
+
+## Current-State vs Target-State
+
+### Current-State
+
+- `{{CURRENT_SYSTEM_FACTS}}`
+
+### Target-State
+
+- `{{TARGET_SYSTEM_FACTS}}`
 
 ## Delivery Topology
 
@@ -37,3 +48,8 @@ This document defines the target architecture for `{{PROJECT_NAME}}`.
 ## Module Strategy
 
 The project organizes `{{MAIN_MODULES}}` as explicit modules with published contracts, owned data, and documented dependencies.
+
+## Notes
+
+- Keep this document synchronized with `ai/context-index/context-map.json` and `ai/spec-registry/specs.yaml`.
+- Update this file whenever the runtime topology, module ownership, or delivery constraints change.

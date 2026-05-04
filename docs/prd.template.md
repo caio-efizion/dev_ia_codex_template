@@ -10,6 +10,18 @@
 - Main modules: `{{MAIN_MODULES}}`
 - Tenancy model: `{{TENANCY_MODEL}}`
 
+## Current State
+
+- Existing system context: `{{EXISTING_SYSTEM_CONTEXT}}`
+- Current delivery mode: `{{DELIVERY_MODE}}`
+- Operational constraints: `{{DELIVERY_MODE_CONSTRAINTS}}`
+
+## Target State
+
+- Target system architecture: `{{SYSTEM_ARCHITECTURE}}`
+- Target tech stack: `{{TECH_STACK}}`
+- Must-preserve contracts or dependencies: `{{MUST_PRESERVE_CONTRACTS}}`
+
 ## Delivery Context
 
 - Current delivery mode: `{{DELIVERY_MODE}}`
@@ -54,6 +66,21 @@ The target state for `{{PROJECT_NAME}}` is a `{{SYSTEM_ARCHITECTURE}}` built on 
 - Data/storage stack: `{{DATA_STACK}}`
 - Infrastructure/platform stack: `{{INFRA_STACK}}`
 - External platforms/services: `{{EXTERNAL_SERVICES}}`
+
+## Frontend And UX Governance
+
+- Primary user-facing surfaces: `{{PRIMARY_FRONTEND_SURFACES}}`
+- Platforms in scope: `{{INTERFACE_PLATFORMS}}`
+- Design system baseline: `{{DESIGN_SYSTEM_BASELINE}}`
+- Visual direction: `{{VISUAL_DIRECTION}}`
+- Theme support: `{{THEME_SUPPORT}}`
+- Critical UI states: `{{CRITICAL_UI_STATES}}`
+- Accessibility baseline: `{{ACCESSIBILITY_BASELINE}}`
+- Keyboard and focus requirements: `{{KEYBOARD_AND_FOCUS_REQUIREMENTS}}`
+- Responsive priorities: `{{RESPONSIVE_PRIORITIES}}`
+- Frontend performance baseline: `{{FRONTEND_PERFORMANCE_BASELINE}}`
+- Motion guidelines: `{{MOTION_GUIDELINES}}`
+- Visual approval or regression requirements: `{{VISUAL_APPROVAL_REQUIREMENTS}}`
 
 ## User Experience And Interface Requirements
 

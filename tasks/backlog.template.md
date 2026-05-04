@@ -1,5 +1,8 @@
 # Development Backlog
 
+- Active task: `none`
+- Reason: `{{ACTIVE_TASK_REASON}}`
+
 ## Progress Tracker
 
 | Module | Status |
@@ -17,6 +20,9 @@
 - dependencies must be explicit
 - only one task may be `ready`
 - valid statuses: `todo`, `ready`, `done`, `blocked`
+- do not advance without validating the current task
+- complete each task with its own commit before promoting the next one
+- keep the backlog aligned with real specs, context maps, and module ownership
 
 ## Backlog
 

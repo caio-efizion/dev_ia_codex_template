@@ -11,6 +11,7 @@ This document defines the constraints that all implementation work must respect.
 5. Shared utilities stay business-agnostic.
 6. Generated runtime artifacts stay inside `runtime/`.
 7. Context index and spec registry changes are required when architectural relationships change.
+8. Template files are fallback material, not execution truth.
 
 ## Forbidden Coupling
 

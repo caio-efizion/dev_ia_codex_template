@@ -4,16 +4,25 @@
 
 `{{PROJECT_NAME}}` uses a multi-agent development workflow aligned to `{{SYSTEM_ARCHITECTURE}}`.
 
+## Operating Model
+
+- real project docs are the source of truth
+- backlog drives execution
+- exactly one task should be ready at a time
+- context index and spec registry must stay synchronized with architecture changes
+- template files are fallback artifacts, not the primary execution surface
+- runtime state, logs, and run graphs stay under `runtime/`
+
 ## Agent Flow
 
-1. Orchestrator selects or unblocks a slice.
+1. Orchestrator selects or unblocks a task.
 2. Planner maintains task structure.
 3. Specification Agent maintains spec quality.
-4. UX/UI Designer makes interface states, accessibility, and responsive behavior explicit for UI-facing slices.
-5. Builder implements one ready slice.
+4. UX/UI Designer makes interface states, accessibility, and responsive behavior explicit for UI-facing tasks.
+5. Builder implements one ready task.
 6. Reviewer checks architectural compliance.
 7. Tester validates behavior.
-8. Frontend Auditor checks user-visible quality, accessibility, responsiveness, and performance evidence for UI-facing slices.
+8. Frontend Auditor checks user-visible quality, accessibility, responsiveness, and performance evidence for UI-facing tasks.
 9. Security audits trusted paths.
 
 ## Supporting Layers
@@ -30,3 +39,5 @@
 - keep runtime artifacts out of source directories
 - update context and registry metadata when the architecture changes
 - keep frontend architecture, design system, and frontend quality gates aligned with user-facing changes
+- prefer the phased human flow `make ai-define -> make ai-build -> make ai-prove`
+- reserve `make ai-run` for heavy continuous automation or broad end-to-end cycles
